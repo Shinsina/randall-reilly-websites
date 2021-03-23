@@ -12,23 +12,47 @@ $ const blockName = "top-stories-carousel";
 $ const withHeader = defaultValue(input.withHeader, true);
 $ const withNativeX = defaultValue(input.withNativeX, true);
 
+$ function increment() {
+    setInterval(function() {
+        if(state.heroNodeIndex !== state.heroNodeMaxIndex){
+          state.heroNodeIndex++;
+          let heroNode = state.nodesArr.slice(0, state.nodesArr.length)[state.heroNodeIndex];
+          let heroImageNode = {
+          id: heroNode.id,
+          type: heroNode.type,
+          siteContext: heroNode.siteContext,
+          primaryImage: heroNode.primaryImage,
+        };
+        state.heroNodeObj = heroNode;
+        state.heroNodeImageObj = heroImageNode;
+        }
+        else {
+          state.heroNodeIndex = 0;
+          let heroNode = state.nodesArr.slice(0, state.nodesArr.length)[state.heroNodeIndex];
+          let heroImageNode = {
+          id: heroNode.id,
+          type: heroNode.type,
+          siteContext: heroNode.siteContext,
+          primaryImage: heroNode.primaryImage,
+        };
+        state.heroNodeObj = heroNode;
+        state.heroNodeImageObj = heroImageNode;
+        }
+        console.log(state.heroNodeObj)
+        console.log(state.heroNodeImageObj)
+    }, 10000)
+  }
+
 class {
     onCreate() {
-        this.state = { heroNodeIndex: 0 };
-    }
-    onUpdate() {
-      if(this.state.heroNode === queryParams.limit-1){
-        this.state.heroNodeIndex = 0;
-      }
-      else {
-        this.state.heroNodeIndex++;
-      }
-      console.log(state.heroNodeIndex);
-    }
+        this.state = { heroNodeIndex: 0, heroNodeMaxIndex: 3, heroNodeObj: {}, heroNodeImageObj: {}, nodesArr: []  };
+  }
 }
-<div onLoad=('this.state.heroNodeIndex++')></div>
+
 <marko-web-query|{ nodes }| name="website-scheduled-content" params=queryParams>
   <if(nodes.length)>
+  <button on-click=increment()></button>
+    $ state.nodesArr = nodes
     $ let heroNode = nodes.slice(0, nodes.length)[state.heroNodeIndex];
     $ let heroImageNode = {
       id: heroNode.id,
@@ -36,6 +60,8 @@ class {
       siteContext: heroNode.siteContext,
       primaryImage: heroNode.primaryImage,
     };
+    $ state.heroNodeObj = heroNode;
+    $ state.heroNodeImageObj = heroImageNode;
     $ const cardNodes = nodes.slice(0);
 
     <marko-web-block name=blockName>
@@ -44,7 +70,6 @@ class {
           Top Stories
         </marko-web-element>
       </if>
-
       <marko-web-element block-name=blockName name="row">
         <marko-web-element block-name=blockName name="col" modifiers=["hero"]>
           <global-content-node
@@ -53,7 +78,7 @@ class {
             flush=true
             image-only=true
             modifiers=[`${blockName}-hero-image`]
-            node=heroImageNode
+            node=state.heroImageNodeObj
           >
             <@image fluid=true width=600 ar="3:2" />
           </global-content-node>
@@ -65,11 +90,10 @@ class {
             display-image=false
             flush=true
             modifiers=[`${blockName}-hero`]
-            node=heroNode
+            node=state.heroNodeObj
           />
         </marko-web-element>
       </marko-web-element>
-
       <if(cardNodes.length)>
         <global-content-card-deck-4-col-flow
           nodes=cardNodes
