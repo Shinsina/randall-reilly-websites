@@ -1,5 +1,6 @@
 import defaultValue from "@parameter1/base-cms-marko-core/utils/default-value";
 import queryFragment from "../../graphql/fragments/top-stories-block";
+// import TopStoriesCarousel from "../../browser/top-stories-carousel.vue"
 
 $ const queryParams = {
   limit: 4,
@@ -38,71 +39,18 @@ $ function increment() {
         state.heroNodeObj = heroNode;
         state.heroNodeImageObj = heroImageNode;
         }
-        console.log(state.heroNodeObj)
-        console.log(state.heroNodeImageObj)
+        //console.log(state.heroNodeObj)
+        //console.log(state.heroNodeImageObj)
     }, 10000)
   }
 
-class {
-    onCreate() {
-        this.state = { heroNodeIndex: 0, heroNodeMaxIndex: 3, heroNodeObj: {}, heroNodeImageObj: {}, nodesArr: []  };
-  }
-}
-
 <marko-web-query|{ nodes }| name="website-scheduled-content" params=queryParams>
   <if(nodes.length)>
-  <button on-click=increment()></button>
-    $ state.nodesArr = nodes
-    $ let heroNode = nodes.slice(0, nodes.length)[state.heroNodeIndex];
-    $ let heroImageNode = {
-      id: heroNode.id,
-      type: heroNode.type,
-      siteContext: heroNode.siteContext,
-      primaryImage: heroNode.primaryImage,
-    };
-    $ state.heroNodeObj = heroNode;
-    $ state.heroNodeImageObj = heroImageNode;
-    $ const cardNodes = nodes.slice(0);
-
-    <marko-web-block name=blockName>
       <if(withHeader)>
         <marko-web-element block-name=blockName name="header">
           Top Stories
         </marko-web-element>
       </if>
-      <marko-web-element block-name=blockName name="row">
-        <marko-web-element block-name=blockName name="col" modifiers=["hero"]>
-          <global-content-node
-            image-position="top"
-            card=true
-            flush=true
-            image-only=true
-            modifiers=[`${blockName}-hero-image`]
-            node=state.heroImageNodeObj
-          >
-            <@image fluid=true width=600 ar="3:2" />
-          </global-content-node>
-        </marko-web-element>
-        <marko-web-element block-name=blockName name="col" modifiers=["list"]>
-          <global-content-node
-            full-height=true
-            card=true
-            display-image=false
-            flush=true
-            modifiers=[`${blockName}-hero`]
-            node=state.heroNodeObj
-          />
-        </marko-web-element>
-      </marko-web-element>
-      <if(cardNodes.length)>
-        <global-content-card-deck-4-col-flow
-          nodes=cardNodes
-          modifiers=[blockName]
-          ...(withNativeX && { nativeX: { name: "default", index: 3, sectionName: "Sponsor Content" } })
-        >
-          <@node modifiers=[`${blockName}-card`] />
-        </global-content-card-deck-4-col-flow>
-      </if>
-    </marko-web-block>
+      <marko-web-browser-component name="GlobalTopStoriesCarousel" props= { nodes }/>
   </if>
 </marko-web-query>

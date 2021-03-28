@@ -10,7 +10,8 @@ import TopStoriesMenu from './top-stories-menu.vue';
 import CommentToggleButton from './comment-toggle-button.vue';
 import IdentityXAuthenticate from './identity-x/authenticate.vue';
 import IdentityXCommentStream from './identity-x/comments/stream.vue';
-
+// import TopStoriesCarousel from './top-stories-carousel.vue';
+const TopStoriesCarousel = () =>  import(/* webpackChunkName: "top-stories-carousel" */ './top-stories-carousel.vue');
 export default (Browser) => {
   GTM(Browser);
   GAM(Browser);
@@ -24,6 +25,7 @@ export default (Browser) => {
   Browser.register('GlobalMenuToggleButton', MenuToggleButton);
   Browser.register('GlobalNewsletterCloseButton', NewsletterCloseButton);
   Browser.register('GlobalTopStoriesMenu', TopStoriesMenu);
+  Browser.register('GlobalTopStoriesCarousel', TopStoriesCarousel);
   Browser.register('GlobalCommentToggleButton', CommentToggleButton);
   Browser.register('WufooForm', WufooForm);
 };

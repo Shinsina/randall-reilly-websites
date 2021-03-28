@@ -31,24 +31,20 @@ export default {
 
   created() {
     EventBus.$on('site-menu-expanded', (expanded) => {
-      if (expanded) {
-        setInterval(this.load(), 20000);
-      }
+      if (expanded) this.load();
     });
   },
 
   methods: {
     async load() {
-      this.isLoading = false;
-      this.hadLoaded = false;
       if (!this.isLoading && !this.hasLoaded) {
         try {
           this.error = null;
           this.isLoading = true;
-          let input = JSON.stringify({ sectionAlias: this.sectionAlias });
-          let href = `/__render-block/top-stories-menu?input=${encodeURIComponent(input)}`;
-          let res = await fetch(href, { credentials: 'same-origin' });
-          this.$set(this, 'html', await res.text());
+          const input = JSON.stringify({ sectionAlias: this.sectionAlias });
+          const href = `/__render-block/top-stories-menu?input=${encodeURIComponent(input)}`;
+          const res = await fetch(href, { credentials: 'same-origin' });
+          this.html = await res.text();
           this.hasLoaded = true;
         } catch (e) {
           this.error = e;
