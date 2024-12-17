@@ -3,7 +3,7 @@ const RigDigWidget = () => import(/* webpackChunkName: "rigdig-widget" */ './wid
 /**
  * @typedef Browser
  * @prop {Function} register
- * @prop {import('@parameter1/base-cms-marko-web/browser/event-bus').default} EventBus
+ * @prop {import('@mindful-web/marko-web/browser/event-bus').default} EventBus
  * @param {Browser} Browser
  */
 export default (Browser) => {

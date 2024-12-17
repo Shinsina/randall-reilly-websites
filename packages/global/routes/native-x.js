@@ -1,4 +1,4 @@
-const getAdvertisingPostAsNativeStory = require('@parameter1/base-cms-mindful/marko-web/middleware/get-advertising-post-as-native-story');
+const getAdvertisingPostAsNativeStory = require('@mindful-web/mindful/marko-web/middleware/get-advertising-post-as-native-story');
 const advertisingPostTemplate = require('../templates/content/advertising-post');
 const { newsletterState } = require('../middleware/newsletter-state');
 const partnerInsights = require('../templates/partner-insights');

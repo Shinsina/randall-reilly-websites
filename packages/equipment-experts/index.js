@@ -1,6 +1,6 @@
-const { asyncRoute } = require('@parameter1/base-cms-utils');
-const { getAsArray, get } = require('@parameter1/base-cms-object-path');
-const { buildImgixUrl } = require('@parameter1/base-cms-image');
+const { asyncRoute } = require('@mindful-web/utils');
+const { getAsArray, get } = require('@mindful-web/object-path');
+const { buildImgixUrl } = require('@mindful-web/image');
 const cheerio = require('cheerio');
 const renderer = require('./renderer');
 const client = require('./client');

@@ -1,7 +1,7 @@
 const debug = require('debug')('sendgrid');
-const buildMarkoGlobal = require('@parameter1/base-cms-marko-web/utils/build-marko-global');
+const buildMarkoGlobal = require('@mindful-web/marko-web/utils/build-marko-global');
 const sgMail = require('@sendgrid/mail');
-const isDev = require('@parameter1/base-cms-marko-core/utils/is-dev');
+const isDev = require('@mindful-web/marko-core/utils/is-dev');
 const { SENDGRID_API_KEY, SENDGRID_DEV_TO } = require('./env');
 const template = require('./templates/notification');
 

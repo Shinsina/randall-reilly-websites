@@ -1,6 +1,6 @@
-const { extractEmbeddedTags } = require('@parameter1/base-cms-embedded-media');
-const buildMarkoGlobal = require('@parameter1/base-cms-marko-web/utils/build-marko-global');
-const { imageHandler, invalidHandler } = require('@parameter1/base-cms-marko-web/utils/embedded-media');
+const { extractEmbeddedTags } = require('@mindful-web/embedded-media');
+const buildMarkoGlobal = require('@mindful-web/marko-web/utils/build-marko-global');
+const { imageHandler, invalidHandler } = require('@mindful-web/marko-web/utils/embedded-media');
 const fetch = require('node-fetch');
 const { URL } = require('url');
 

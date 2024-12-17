@@ -1,6 +1,6 @@
 const retry = require('p-retry');
-const { asyncRoute } = require('@parameter1/base-cms-utils');
-const { getAsObject } = require('@parameter1/base-cms-object-path');
+const { asyncRoute } = require('@mindful-web/utils');
+const { getAsObject } = require('@mindful-web/object-path');
 const payfabric = require('@randall-reilly/package-payfabric');
 const { json } = require('express');
 const debug = require('debug')('rigdig');

@@ -1,13 +1,13 @@
 const newrelic = require('newrelic');
-const { asyncRoute } = require('@parameter1/base-cms-utils');
-const { startServer } = require('@parameter1/base-cms-marko-web');
-const { set, get, getAsObject } = require('@parameter1/base-cms-object-path');
-const loadInquiry = require('@parameter1/base-cms-marko-web-inquiry');
-const htmlSitemapPagination = require('@parameter1/base-cms-marko-web-html-sitemap/middleware/paginated');
-const omedaIdentityX = require('@parameter1/base-cms-marko-web-omeda-identity-x');
-const omedaCookie = require('@parameter1/base-cms-marko-web-omeda/olytics/customer-cookie');
+const { asyncRoute } = require('@mindful-web/utils');
+const { startServer } = require('@mindful-web/marko-web');
+const { set, get, getAsObject } = require('@mindful-web/object-path');
+const loadInquiry = require('@mindful-web/marko-web-inquiry');
+const htmlSitemapPagination = require('@mindful-web/marko-web-html-sitemap/middleware/paginated');
+const omedaIdentityX = require('@mindful-web/marko-web-omeda-identity-x');
+const omedaCookie = require('@mindful-web/marko-web-omeda/olytics/customer-cookie');
 const fetch = require('node-fetch');
-const MindfulMarkoWebService = require('@parameter1/base-cms-mindful/marko-web/middleware/service');
+const MindfulMarkoWebService = require('@mindful-web/mindful/marko-web/middleware/service');
 
 const document = require('./components/document');
 const components = require('./components');

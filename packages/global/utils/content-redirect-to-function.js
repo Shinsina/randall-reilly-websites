@@ -1,4 +1,4 @@
-const { get } = require('@parameter1/base-cms-object-path');
+const { get } = require('@mindful-web/object-path');
 
 const redirectToPrimarySite = new Set([
   15383937,
