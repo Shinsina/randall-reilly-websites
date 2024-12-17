@@ -144,8 +144,8 @@
 </template>
 
 <script>
-import IconEmail from '@parameter1/base-cms-marko-web-icons/browser/mail.vue';
-import IconCheckCircle from '@parameter1/base-cms-marko-web-icons/browser/check-circle.vue';
+import IconEmail from '@mindful-web/marko-web-icons/browser/mail.vue';
+import IconCheckCircle from '@mindful-web/marko-web-icons/browser/check-circle.vue';
 
 import CheckoutModal from './checkout-modal.vue';
 import AlertError from './alert-error.vue';

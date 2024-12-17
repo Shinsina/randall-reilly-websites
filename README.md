@@ -49,15 +49,15 @@ export EXPOSED_PORT="9801"
 export LIVERELOAD_PORT="19801"
 export TENANT_KEY="randallreilly_all"
 export SITE_ID="5fce562fd28860bc33b826d6"
-export GRAPHQL_URI="https://graphql.virgon.base.parameter1.com"
-export OEMBED_URI="https://oembed.virgon.base.parameter1.com"
-export RSS_URI="https://rss.virgon.base.parameter1.com"
-export SITEMAPS_URI="https://sitemaps.virgon.base.parameter1.com"
+export GRAPHQL_URI="https://graphql.virgon.mindful-web.parameter1.com"
+export OEMBED_URI="https://oembed.virgon.mindful-web.parameter1.com"
+export RSS_URI="https://rss.virgon.mindful-web.parameter1.com"
+export SITEMAPS_URI="https://sitemaps.virgon.mindful-web.parameter1.com"
 export NODE_ENV="development"
 export IDENTITYX_GRAPHQL_URI="https://identity-x.parameter1.com/graphql"
-export BASE_BROWSE_GRAPHQL_URI="https://base-browse.virgon.base.parameter1.com/graphql"
+export BASE_BROWSE_GRAPHQL_URI="https://browse.virgon.mindful-web.parameter1.com/graphql"
 
-./node_modules/.bin/basecms-website dev sites/equipmentworld.com
+./node_modules/.bin/mindful-web-website dev sites/equipmentworld.com
 ```
 
 ```bat
@@ -69,15 +69,15 @@ set "EXPOSED_PORT=9801"
 set "LIVERELOAD_PORT=19801"
 set "TENANT_KEY=randallreilly_all"
 set "SITE_ID=5fce562fd28860bc33b826d6"
-set "GRAPHQL_URI=https://graphql.virgon.base.parameter1.com"
-set "OEMBED_URI=https://oembed.virgon.base.parameter1.com"
-set "RSS_URI=https://rss.virgon.base.parameter1.com"
-set "SITEMAPS_URI=https://sitemaps.virgon.base.parameter1.com"
+set "GRAPHQL_URI=https://graphql.virgon.mindful-web.parameter1.com"
+set "OEMBED_URI=https://oembed.virgon.mindful-web.parameter1.com"
+set "RSS_URI=https://rss.virgon.mindful-web.parameter1.com"
+set "SITEMAPS_URI=https://sitemaps.virgon.mindful-web.parameter1.com"
 set "NODE_ENV=development"
 set "IDENTITYX_GRAPHQL_URI=https://identity-x.parameter1.com/graphql"
-set "BASE_BROWSE_GRAPHQL_URI=https://base-browse.virgon.base.parameter1.com/graphql"
+set "BASE_BROWSE_GRAPHQL_URI=https://browse.virgon.mindful-web.parameter1.com/graphql"
 
-./node_modules/.bin/basecms-website dev sites/equipmentworld.com
+./node_modules/.bin/mindful-web-website dev sites/equipmentworld.com
 ```
 
 ### Developing on Microsoft Windows

@@ -1,5 +1,5 @@
-import defaultValue from "@parameter1/base-cms-marko-core/utils/default-value";
-$ const { getAsObject } = require('@parameter1/base-cms-object-path');
+import defaultValue from "@mindful-web/marko-core/utils/default-value";
+$ const { getAsObject } = require('@mindful-web/object-path');
 $ const environment = process.env.PAYFABRIC_ENV || 'SANDBOX';
 $ const paymentMethods = (process.env.PAYFABRIC_PAYMENT_METHODS || 'CreditCard,ApplePay,GooglePay').split(',');
 $ const debug = process.env.NODE_ENV === 'development';

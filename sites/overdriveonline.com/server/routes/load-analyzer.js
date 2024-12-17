@@ -1,7 +1,7 @@
 const load = require('@randall-reilly/package-global/templates/static/load-analyzer/index');
 const loadAnalyzer = require('@randall-reilly/package-global/templates/static/load-analyzer/load-analyzer');
 
-const { get } = require('@parameter1/base-cms-object-path');
+const { get } = require('@mindful-web/object-path');
 
 module.exports = (app) => {
   app.get('/load-analyzer/submit', (req, res) => {

@@ -1,6 +1,6 @@
 const withContent = require('@randall-reilly/package-global/middleware/with-content');
-const contentMetering = require('@parameter1/base-cms-marko-web-theme-monorail/middleware/content-metering');
-const qf = require('@parameter1/base-cms-marko-web-theme-monorail/graphql/fragments/content-page');
+const contentMetering = require('@mindful-web/marko-web-theme-monorail/middleware/content-metering');
+const qf = require('@mindful-web/marko-web-theme-monorail/graphql/fragments/content-page');
 const contact = require('@randall-reilly/package-global/templates/content/contact');
 const { newsletterState, formatContentResponse } = require('@randall-reilly/package-global/middleware/newsletter-state');
 const redirectToFn = require('@randall-reilly/package-global/utils/content-redirect-to-function');

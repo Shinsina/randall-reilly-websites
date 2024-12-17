@@ -7,7 +7,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "compile": "basecms-marko-compile compile",
+    "compile": "mindful-web-marko-compile compile",
     "build": "yarn compile",
     "lint": "eslint --ext .js --ext .vue --max-warnings 5 --config ../../.eslintrc.js --ignore-path ../../.eslintignore ./",
     "lint:fix": "yarn lint --fix",

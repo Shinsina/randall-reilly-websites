@@ -1,5 +1,5 @@
-const { withWebsiteSection } = require('@parameter1/base-cms-marko-web/middleware');
-const queryFragment = require('@parameter1/base-cms-marko-web-theme-monorail/graphql/fragments/website-section-page');
+const { withWebsiteSection } = require('@mindful-web/marko-web/middleware');
+const queryFragment = require('@mindful-web/marko-web-theme-monorail/graphql/fragments/website-section-page');
 const { newsletterState } = require('@randall-reilly/package-global/middleware/newsletter-state');
 const products = require('../templates/website-section/products');
 const deathByTrench = require('../templates/website-section/death-by-trench');

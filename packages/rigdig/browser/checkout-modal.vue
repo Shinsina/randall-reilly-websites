@@ -206,8 +206,8 @@
 </template>
 
 <script>
-import IconX from '@parameter1/base-cms-marko-web-icons/browser/x.vue';
-import IconCheckCircle from '@parameter1/base-cms-marko-web-icons/browser/check-circle.vue';
+import IconX from '@mindful-web/marko-web-icons/browser/x.vue';
+import IconCheckCircle from '@mindful-web/marko-web-icons/browser/check-circle.vue';
 import AlertError from './alert-error.vue';
 import CheckoutHeader from './checkout-header.vue';
 

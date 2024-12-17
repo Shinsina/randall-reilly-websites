@@ -24,8 +24,8 @@ x-env-defaults: &env
   YARN_CACHE_FOLDER: /.yarn-cache
   IDENTITYX_API_TOKEN: ${IDENTITYX_API_TOKEN-(unset)}
   IDENTITYX_GRAPHQL_URI: ${IDENTITYX_GRAPHQL_URI-https://identity-x.parameter1.com/graphql}
-  BASE_BROWSE_GRAPHQL_URI: ${BASE_BROWSE_GRAPHQL_URI-https://base-browse.virgon.base.parameter1.com/graphql}
-  EQUIPMENT_EXPERTS_GRAPHQL_URI: ${EQUIPMENT_EXPERTS_GRAPHQL_URI-https://equipment-experts.virgon.base.parameter1.com/graphql}
+  BASE_BROWSE_GRAPHQL_URI: ${BASE_BROWSE_GRAPHQL_URI-https://browse.virgon.mindful-web.parameter1.com/graphql}
+  EQUIPMENT_EXPERTS_GRAPHQL_URI: ${EQUIPMENT_EXPERTS_GRAPHQL_URI-https://equipment-experts.virgon.mindful-web.parameter1.com/graphql}
   ENABLE_CONTENT_METER: ${ENABLE_CONTENT_METER-false}
   CONTENT_METER_VIEW_LIMIT: ${CONTENT_METER_VIEW_LIMIT-3}
   SHOW_INBODY_THR_PROMO: ${SHOW_INBODY_THR_PROMO-false}
@@ -44,16 +44,16 @@ x-env-virgon-dev: &env-virgon-dev
   SITEMAPS_URI: ${SITEMAPS_URI-http://host.docker.internal:10303}
 
 x-env-leonis: &env-leonis
-  GRAPHQL_URI: ${GRAPHQL_URI-https://graphql.leonis.base.parameter1.com}
-  OEMBED_URI: ${OEMBED_URI-https://oembed.leonis.base.parameter1.com}
-  RSS_URI: ${RSS_URI-https://rss.leonis.base.parameter1.com}
-  SITEMAPS_URI: ${SITEMAPS_URI-https://sitemaps.leonis.base.parameter1.com}
+  GRAPHQL_URI: ${GRAPHQL_URI-https://graphql.leonis.mindful-web.parameter1.com}
+  OEMBED_URI: ${OEMBED_URI-https://oembed.leonis.mindful-web.parameter1.com}
+  RSS_URI: ${RSS_URI-https://rss.leonis.mindful-web.parameter1.com}
+  SITEMAPS_URI: ${SITEMAPS_URI-https://sitemaps.leonis.mindful-web.parameter1.com}
 
 x-env-virgon: &env-virgon
-  GRAPHQL_URI: ${GRAPHQL_URI-https://graphql.virgon.base.parameter1.com}
-  OEMBED_URI: ${OEMBED_URI-https://oembed.virgon.base.parameter1.com}
-  RSS_URI: ${RSS_URI-https://rss.virgon.base.parameter1.com}
-  SITEMAPS_URI: ${SITEMAPS_URI-https://sitemaps.virgon.base.parameter1.com}
+  GRAPHQL_URI: ${GRAPHQL_URI-https://graphql.virgon.mindful-web.parameter1.com}
+  OEMBED_URI: ${OEMBED_URI-https://oembed.virgon.mindful-web.parameter1.com}
+  RSS_URI: ${RSS_URI-https://rss.virgon.mindful-web.parameter1.com}
+  SITEMAPS_URI: ${SITEMAPS_URI-https://sitemaps.virgon.mindful-web.parameter1.com}
 
 x-site-command: &site-cmd
   <<: *node

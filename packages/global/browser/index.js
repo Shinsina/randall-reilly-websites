@@ -1,4 +1,4 @@
-import MonoRail from '@parameter1/base-cms-marko-web-theme-monorail/browser';
+import MonoRail from '@mindful-web/marko-web-theme-monorail/browser';
 
 const LoadAnalyzer = () => import(/* webpackChunkName: "load-analyzer" */ './load-analyzer.vue');
 const LoadToggler = () => import(/* webpackChunkName: "load-toggler" */ './load-toggler.vue');

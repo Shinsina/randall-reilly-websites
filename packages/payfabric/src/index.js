@@ -1,4 +1,4 @@
-const { asyncRoute } = require('@parameter1/base-cms-utils');
+const { asyncRoute } = require('@mindful-web/utils');
 const { json } = require('express');
 
 const PayFabricAPIClient = require('./client');
@@ -22,7 +22,7 @@ const createError = (message, code) => {
 
 /**
  * @typedef ResponseContext
- * @prop {import('@parameter1/base-cms-marko-web-identity-x/service')} identityX
+ * @prop {import('@mindful-web/marko-web-identity-x/service')} identityX
  *
  * @typedef IdentityXContext
  * @prop {IdxAppContext} application

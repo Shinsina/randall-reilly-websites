@@ -1,5 +1,5 @@
-const { asyncRoute } = require('@parameter1/base-cms-utils');
-const { get } = require('@parameter1/base-cms-object-path');
+const { asyncRoute } = require('@mindful-web/utils');
+const { get } = require('@mindful-web/object-path');
 const gql = require('graphql-tag');
 
 const query = gql`
