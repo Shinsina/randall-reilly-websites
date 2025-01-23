@@ -27,7 +27,7 @@ const defaults = {
       { id: 5270, label: 'Corporate Mangement/Owner' },
       { id: 5273, label: 'Operations/Safety Management' },
       { id: 5272, label: 'Maintenance Management' },
-      { id: 5271, label: 'Purchasing/Adkinistrative/Marketing' },
+      { id: 5271, label: 'Purchasing/Administrative/Marketing' },
       { id: 5277, label: 'Technician/Mechanic' },
       { id: 5276, label: 'Sales' },
       { id: 5275, label: 'Driver' },
