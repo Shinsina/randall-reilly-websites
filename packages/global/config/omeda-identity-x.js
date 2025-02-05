@@ -63,7 +63,11 @@ module.exports = ({
   appendPromoCodeToHook,
   appendBehaviorToHook,
   appendDemographicToHook,
-  onLoginLinkSentFormatter: (async ({ req, payload }) => {
+
+  /**
+   * @type {import('@mindful-web/marko-web-omeda-identity-x').OnLoginLinkSentFormatterFn}
+   */
+  onLoginLinkSentFormatter: async ({ req, payload }) => {
     // const identityXOptInHooks = req.app.locals.site.getAsObject('identityXOptInHooks');
     const omeda = req.app.locals.site.getAsObject('omeda');
     const { user } = payload;
@@ -98,8 +102,12 @@ module.exports = ({
       };
     }
     return payload;
-  }),
-  onAuthenticationSuccessFormatter: (async ({
+  },
+
+  /**
+   * @type {import('@mindful-web/marko-web-omeda-identity-x').OnAuthenticationSuccessFormatterFn}
+   */
+  onAuthenticationSuccessFormatter: async ({
     req,
     payload,
     loginSource,
@@ -159,8 +167,12 @@ module.exports = ({
       }
     }
     return payload;
-  }),
-  onUserProfileUpdateFormatter: (async ({ req, payload }) => {
+  },
+
+  /**
+   * @type {import('@mindful-web/marko-web-omeda-identity-x').OnUserProfileUpdateFormatterFn}
+   */
+  onUserProfileUpdateFormatter: async ({ req, payload }) => {
     // BAIL if omedaGraphQLCLient isnt available return payload.
     if (!req.$omedaGraphQLClient) return payload;
 
@@ -233,5 +245,5 @@ module.exports = ({
       // }
     }
     return payload;
-  }),
+  },
 });
