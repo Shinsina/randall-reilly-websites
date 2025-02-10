@@ -8,7 +8,7 @@ const topics = {
     { href: '/regulations', label: 'Regulations' },
     { href: '/life', label: 'Life' },
     { href: '/custom-rigs', label: 'Custom Rigs' },
-    { href: '/overdrive-extra', label: 'Overdrive Extra' },
+    { href: '/gear', label: 'Gear' },
   ],
   expanded: [
     { href: '/channel-19', label: 'Channel 19' },
@@ -49,6 +49,7 @@ const desktopMenu = {
   user: [],
   sections: [
     ...topics.primary,
+    { href: '/overdrive-extra', label: 'Overdrive Extra' },
     ...topics.expanded,
     ...topics.secondary,
   ],
