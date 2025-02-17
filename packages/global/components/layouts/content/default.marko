@@ -286,6 +286,16 @@ $ const bypassGate = hasOmedaId(req);
               </for>
             </if>
 
+            <if(displaySocialShare)>
+              <div class="social-sharing--wrapper">
+                <marko-web-social-sharing
+                  path=content.siteContext.path
+                  providers=["print", "facebook", "linkedin", "twitter", "pinterest"]
+                  print-path=`/print/content/${content.id}`
+                />
+              </div>
+            </if>
+
             <if(displayReadNext)>
               <theme-read-next-block
                 content-id=id
@@ -305,14 +315,6 @@ $ const bypassGate = hasOmedaId(req);
                   <identity-x-newsletter-form-inline type="inlineContent" />
                 </else-if>
               </marko-web-identity-x-context>
-            </if>
-
-            <if(displaySocialShare)>
-              <marko-web-social-sharing
-                path=content.siteContext.path
-                providers=["print", "facebook", "linkedin", "twitter", "pinterest"]
-                print-path=`/print/content/${content.id}`
-              />
             </if>
           </else>
         </marko-web-identity-x-access>
