@@ -296,6 +296,19 @@ $ const bypassGate = hasOmedaId(req);
               </div>
             </if>
 
+            <div class="content-card-deck content-card-deck__related-stories">
+              <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+                <theme-related-stories-block
+                  content-id=content.id
+                  section-id=content.primarySection.id
+                  published=content.published
+                  with-native-x=true
+                  native-x={ name: "partner-insights", sectionName: "Partner Insights" }
+                  title="Next Read"
+                />
+              </div>
+            </div>
+
             <if(displayReadNext)>
               <theme-read-next-block
                 content-id=id
@@ -303,30 +316,29 @@ $ const bypassGate = hasOmedaId(req);
                 published=content.published
               />
             </if>
-
-            $ const { primarySection } = content;
-            <if(displayNewsletterSignup)>
-              <marko-web-identity-x-context|{ hasUser }|>
-                $ const selector = ["a", "b"].sort((a, b) => 0.5 - Math.random())
-                <if(hasUser || (!hasUser && selector[0] === "a"))>
-                  <global-job-search-block />
-                </if>
-                <else-if(!hasUser)>
-                  <identity-x-newsletter-form-inline type="inlineContent" />
-                </else-if>
-              </marko-web-identity-x-context>
-            </if>
           </else>
         </marko-web-identity-x-access>
 
         <if(displayComments)>
           <theme-identity-x-comment-stream content=content />
         </if>
+
+        <if(displayNewsletterSignup)>
+          <marko-web-identity-x-context|{ hasUser }|>
+            $ const selector = ["a", "b"].sort((a, b) => 0.5 - Math.random())
+            <if(hasUser || (!hasUser && selector[0] === "a"))>
+              <global-job-search-block />
+            </if>
+            <else-if(!hasUser)>
+              <!-- <identity-x-newsletter-form-inline type="inlineContent" /> -->
+            </else-if>
+          </marko-web-identity-x-context>
+        </if>
       </theme-page-contents>
     </div>
   </@section>
 
-  <@section|{ content }|>
+  <!-- <@section|{ content }|>
     <theme-related-stories-block
       content-id=content.id
       section-id=content.primarySection.id
@@ -334,8 +346,7 @@ $ const bypassGate = hasOmedaId(req);
       with-native-x=true
       native-x={ name: "partner-insights", sectionName: "Partner Insights" }
     />
-  </@section>
-
+  </@section> -->
 
   <if(showBottomAdBlock && !showOverlay)>
     <@section|{ aliases }|>
