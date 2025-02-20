@@ -57,79 +57,80 @@ $ const logoSrcs = [
     </marko-web-block>
 
     <if(p.page === 1)>
-      <marko-web-block name=blockName>
-        <div class="manual-row">
-          <marko-web-element block-name=blockName name="inner-wrapper">
-            <!-- <div> -->
-              <marko-web-element block-name=blockName name="description" tag="h2">
-                The Business Manual for Owner-Operators
-              </marko-web-element>
-              <marko-web-element block-name=blockName name="partners-label">
+      <div class="pib-page-intro">
+        <div class="pib-page-intro__inner-wrapper">
+          <div class="pib-page-intro__img-wrapper">
+            <marko-web-img
+              class="pib-page-intro__issue-cover"
+              src="https://img.overdriveonline.com/files/base/randallreilly/all/image/static/pib-manual-2024.png?auto=format&w=120&fit=crop"
+              srcset="https://img.overdriveonline.com/files/base/randallreilly/all/image/static/pib-manual-2024.png?auto=format&w=120&fit=crop&dpr=2"
+              alt="Partners in Business Issue Cover"
+            />
+          </div>
+          <div class="pib-page-intro__body-wrapper">
+            <div class="pib-page-intro__title">
+              The Business Manual for Owner-Operators
+            </div>
+            <div class="pib-page-intro__description">
+              <p>
                 Overdrive editors and ATBS present the industry’s best manual for prospective and committed owner-operators. You’ll find exceptional depth on many issues in the Partners in Business playbook.
-              </marko-web-element>
-              <marko-web-element block-name=blockName name="partners-label">
+              </p>
+              <p>
                 To access the playbook, complete your free registration on Overdrive.
-              </marko-web-element>
-              <marko-web-link
-                class=`btn btn-primary ${blockName}__download-btn`
-                href="https://register.overdriveonline.com/pib-manual/"
-                title="Register Now"
-              >
-                Register Now
-              </marko-web-link>
-              <marko-web-img
-                class=`${blockName}__issue-cover`
-                src='https://img.overdriveonline.com/files/base/randallreilly/all/image/static/pib-manual-2024.png?auto=format&w=120&fit=crop'
-                srcset='https://img.overdriveonline.com/files/base/randallreilly/all/image/static/pib-manual-2024.png?auto=format&w=120&fit=crop&dpr=2'
-                alt="Partners in Business Issue Cover"
-              />
-            <!-- </div> -->
-          </marko-web-element>
+              </p>
+            </div>
+            <a
+              href="https://overdriveonline.com/pride-polish"
+              title="Read More"
+              class="btn btn-primary pib-page-intro__download-btn"
+            >
+              Regsiter Now
+            </a>
+          </div>
         </div>
-      </marko-web-block>
+      </div>
     </if>
   </@section>
   <@section>
     <if(p.page === 1)>
       <div class="row">
-        <div block-name=blockName class="column">
+        <marko-web-element block-name=blockName name="toc-feature-wrapper">
           <marko-web-query|{ nodes }| name="website-scheduled-content" params=queryParams>
-            <marko-web-block name=blockName>
+            <marko-web-element block-name=blockName name="toc">
               <marko-web-element block-name=blockName name="title">
                 Browse the Playbook
               </marko-web-element>
-            </marko-web-block>
-            <div class="playbook-list">
-              <ol>
-                <li>
-                  <a href="/partners-in-business/starting-line"> Starting line </a>
-                </li>
-                <li>
-                  <a href="/partners-in-business/equipment-maintenance"> Equipment and maintenance </a>
-                </li>
-                <li>
-                  <a href="/partners-in-business/business-management"> Business management </a>
-                </li>
-                <li>
-                  <a href="/partners-in-business/safety-compliance"> Safety and compliance </a>
-                </li>
-                <li>
-                  <a href="/partners-in-business/trucking-other-insurance"> Trucking and other insurance </a>
-                </li>
-                <li>
-                  <a href="/partners-in-business/taxes"> Taxes </a>
-                </li>
-                <li>
-                  <a href="/partners-in-business/independence-growth"> Independence and growth </a>
-                </li>
-                <li>
-                  <a href="/partners-in-business/finish-line"> Finish line </a>
-                </li>
-              </ol>
-            </div>
+              <marko-web-element block-name=blockName name="playbook-list">
+                <ol>
+                  <li>
+                    <a href="/partners-in-business/starting-line"> Starting line </a>
+                  </li>
+                  <li>
+                    <a href="/partners-in-business/equipment-maintenance"> Equipment and maintenance </a>
+                  </li>
+                  <li>
+                    <a href="/partners-in-business/business-management"> Business management </a>
+                  </li>
+                  <li>
+                    <a href="/partners-in-business/safety-compliance"> Safety and compliance </a>
+                  </li>
+                  <li>
+                    <a href="/partners-in-business/trucking-other-insurance"> Trucking and other insurance </a>
+                  </li>
+                  <li>
+                    <a href="/partners-in-business/taxes"> Taxes </a>
+                  </li>
+                  <li>
+                    <a href="/partners-in-business/independence-growth"> Independence and growth </a>
+                  </li>
+                  <li>
+                    <a href="/partners-in-business/finish-line"> Finish line </a>
+                  </li>
+                </ol>
+              </marko-web-element>
+            </marko-web-element>
           </marko-web-query>
-        </div>
-          <div block-name=blockName class="column">
+          <marko-web-element block-name=blockName name="features">
             <marko-web-query|{ nodes }| name="website-scheduled-content" params=queryParams>
               <marko-web-block name=blockName>
                 <marko-web-element block-name=blockName name="title">
@@ -153,10 +154,8 @@ $ const logoSrcs = [
                 </@slot>
               </theme-card-deck-flow>
             </marko-web-query>
-          </div>
-        <!-- <div class="featured-grid">
-          <theme-section-card-deck-featured-block alias="partners-in-business" limit=4/>
-        </div> -->
+          </marko-web-element>
+        </marko-web-element>
       </div>
     </if>
   </@section>

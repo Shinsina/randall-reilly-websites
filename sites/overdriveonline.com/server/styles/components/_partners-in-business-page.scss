@@ -1,4 +1,5 @@
 .pib-page {
+  $self: &;
   &__header {
     padding-bottom: 40px;
     text-align: center;
@@ -14,54 +15,79 @@
     @include skin-typography($style: "pib-description");
   }
 
-  &__partners-label {
-    margin-bottom: 20px;
-  }
-
-  &__partner-logos {
-    display: flex;
-    justify-content: center;
-  }
-
-  &__partner-logo-1 {
-    width: 88px;
-    margin-right: 22px;
-  }
-
-  &__partner-logo-2 {
-    width: 148px;
-  }
-
-  &__issue-cover {
-    float: left;
-  }
-
-  .manual-row {
+  &-intro {
     border-radius: 25px;
-    border: 2px solid black;
-    width: 100%;
-    margin: 10px;
-  }
+    border: 2px solid $gray-100;
+    height: 100%;
+    padding: map-get($spacers, block);
 
-  &__title {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    line-height: 1.13;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+    &__title {
+      margin-bottom: 8px;
+      @include skin-typography($style: "header-2");
+    }
+
+    &__description {
+      margin-bottom: 16px;
+      @include skin-typography($style: "small-body-text");
+    }
+
+    &__inner-wrapper {
+      display: flex;
+    }
+
+    &__body-wrapper {
+      flex-grow: 2;
+    }
+
+    &__img-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__issue-cover {
+      align-self: flex-start;
+      width: 120px;
+      margin-right: 24px;
+    }
   }
-  .playbook-list {
-    // .li {
-      a {
-        color:black;
-        font-size: 24px;
-        background-color: $gray-100;
+  &__toc-feature-wrapper {
+    display: flex;
+    flex-direction: row;
+
+    #{ $self } {
+      &__title {
+        margin-bottom: 8px;
+        @include skin-typography($style: "header-2");
       }
-    // }
-  }
-}
+      &__toc {
+        padding: map-get($spacers, block);
 
-.column {
-  width: 50%;
+        @include media-breakpoint-up(md) {
+          @include make-col(4);
+        }
+        ol{
+          padding-left: 0;
+          padding-right: map-get($spacers, block);
+        }
+        li {
+          list-style-position: inside;
+          text-indent: -1em;
+          padding: 10px 2em;
+          background-color: $gray-100;
+          a,
+          a:hover,
+          a:visited {
+            color: $black;
+          }
+          margin-bottom: map-get($spacers, 2)
+        }
+      }
+      &__features {
+        padding: map-get($spacers, block);
+        @include media-breakpoint-up(md) {
+          @include make-col(8);
+        }
+      }
+    }
+  }
 }
