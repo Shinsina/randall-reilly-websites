@@ -53,6 +53,9 @@
   &__toc-feature-wrapper {
     display: flex;
     flex-direction: row;
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
 
     #{ $self } {
       &__title {
@@ -61,13 +64,12 @@
       }
       &__toc {
         padding: map-get($spacers, block);
-
         @include media-breakpoint-up(md) {
           @include make-col(4);
         }
         ol{
           padding-left: 0;
-          padding-right: map-get($spacers, block);
+          padding-right: 0;
           font-weight: bold;
           font-size: 16px;
         }
