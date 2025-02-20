@@ -29,6 +29,9 @@
     &__description {
       margin-bottom: 16px;
       @include skin-typography($style: "small-body-text");
+      @media (max-width: 980px) {
+        display: none;
+      }
     }
 
     &__inner-wrapper {
