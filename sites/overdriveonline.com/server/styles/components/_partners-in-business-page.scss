@@ -68,12 +68,15 @@
         ol{
           padding-left: 0;
           padding-right: map-get($spacers, block);
+          font-weight: bold;
+          font-size: 16px;
         }
         li {
           list-style-position: inside;
           text-indent: -1em;
           padding: 10px 2em;
           background-color: $gray-100;
+          font-weight: bold;
           a,
           a:hover,
           a:visited {
