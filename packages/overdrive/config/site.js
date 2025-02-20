@@ -111,4 +111,5 @@ module.exports = {
     },
   },
   setSearchSortFieldToScore: true,
+  copyrightNotice: 'All rights reserved. Fusable® is a trademark of Randall-Reilly, LLC.',
 };
