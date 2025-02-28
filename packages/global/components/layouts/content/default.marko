@@ -11,16 +11,25 @@ import NativeXCardDeck from "../../blocks/native-x-card-deck";
 import LoadAnaylzerInboyPromo from "../../blocks/load-analyzer-inbody-promo";
 
 $ const { initiallyInjected } = getAsObject(out.global, "newsletterState");
+import { shouldOverlay, restrictContentByReg, shouldTruncate } from "@mindful-web/marko-web-theme-monorail/utils/content-meter-helpers";
 
-import { cmShowOverlay, cmRestrictContentByReg, cmTruncateBody } from "../../../utils/content-meter-helpers";
+$ const {
+  site,
+  req,
+  config,
+  nativeX: nxConfig,
+  GAM,
+  pagination: p,
+  contentMeterState,
+  contentAccessState,
+ } = out.global;
 
-$ const { global: $global } = out;
-$ const { nativeX: nxConfig } = $global;
-$ const { site, contentMeterState, GAM, req, config } = $global;
-$ const showOverlay = cmShowOverlay(contentMeterState);
+$ const showOverlay = shouldOverlay(contentMeterState);
+$ contentAccessState.setFormDisplay({ req });
+$ const { formId: idxFormId, displayForm: displayIdxForm } = contentAccessState;
+
 $ const { id, type, pageNode, showReadNextBlock, showBottomAdBlock, showTopStoryBlock, ...rest } = input;
 $ const sections = getAsArray(input, "sections");
-
 $ const displayPrimaryImage = ["media-gallery"].includes(type) ? false : true;
 $ const displayPublishedDate = ["company", "contact", "whitepaper"].includes(type) ? false : true;
 $ const displayReadNext = showReadNextBlock && ["article"].includes(type);
@@ -102,7 +111,7 @@ $ const bypassGate = hasOmedaId(req);
           </else-if>
         </if>
         $ const contentRequiresRegistration = get(content, "userRegistration.isCurrentlyRequired");
-        $ const requiresRegistration = !bypassGate && (contentRequiresRegistration || cmRestrictContentByReg(contentMeterState, content));
+        $ const requiresRegistration = !bypassGate && (contentRequiresRegistration || restrictContentByReg(contentMeterState, content));
         $ const accessLevels = getAsArray(content, "userRegistration.accessLevels");
         <marko-web-identity-x-access|context|
           enabled=requiresRegistration
@@ -110,8 +119,46 @@ $ const bypassGate = hasOmedaId(req);
         >
 
           $ const lazyloadFirstImage = displayPrimaryImage && content.primaryImage;
-
-          <if(cmTruncateBody(contentMeterState))>
+          <if(idxFormId)>
+            <if(displayIdxForm)>
+              $ const body = getContentPreview({ body: content.body, selector: "p:lt(3)" });
+              <marko-web-content-body block-name=blockName obj={ body } />
+              <div class="content-page-preview-overlay" />
+              <marko-web-content-body block-name=blockName attrs={ style: "display: none;" } obj=content modifiers=["ld-json"] />
+                <marko-web-identity-x-context|{ hasUser, user, application }|>
+                <if(hasUser)>
+                  <marko-web-identity-x-form-access
+                    content=content
+                    user=user
+                    formId=idxFormId
+                    application=application
+                  />
+                </if>
+                <else>
+                  <marko-web-identity-x-non-auth-identify|{ user: identifiedUser }|>
+                    <marko-web-identity-x-form-access
+                      updateProfileOnSubmit=false
+                      content=content
+                      user=identifiedUser
+                      formId=idxFormId
+                      application=application
+                    />
+                  </marko-web-identity-x-non-auth-identify>
+                </else>
+              </marko-web-identity-x-context>
+            </if>
+            <else>
+              $ const bodyId = `content-body-${content.id}`;
+              <theme-body-with-injection
+                content=content
+                aliases=[]
+                block-name=blockName
+                selector=bodyId
+                preventHTMLInjection=true
+              />
+            </else>
+          </if>
+          <else-if(shouldTruncate(contentMeterState))>
             $ const body = showOverlay ? getContentPreview({ body: content.body, selector: "p:lt(7)" }) : getContentPreview({ body: content.body, selector: "p:nth-of-type(1)" });
             <marko-web-content-body block-name=blockName obj={ body } lazyload-first-image=lazyloadFirstImage />
 
@@ -130,7 +177,7 @@ $ const bypassGate = hasOmedaId(req);
                 profile-event-name="content_meter_profile"
               />
             </if>
-          </if>
+          </else-if>
           <else-if(!context.canAccess || context.requiresUserInput)>
             $ const body = getContentPreview({ body: content.body, selector: "p:lt(4)" });
             <marko-web-content-body block-name=blockName obj={ body } lazyload-first-image=lazyloadFirstImage />
