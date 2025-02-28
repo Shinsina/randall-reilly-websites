@@ -1,6 +1,6 @@
 {
   "name": "@randall-reilly/overdriveonline.com",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "author": "Jacob Bare <jacob@parameter1.com>",
   "repository": "https://github.com/parameter1/randall-reilly-websites/tree/master/sites/overdriveonline.com",
   "license": "MIT",
@@ -38,8 +38,8 @@
     "@mindful-web/object-path": "^1.0.0",
     "@mindful-web/utils": "^1.0.0",
     "@mindful-web/web-cli": "^1.0.2",
-    "@randall-reilly/package-global": "^2.2.0",
-    "@randall-reilly/package-overdrive": "^2.2.1",
+    "@randall-reilly/package-global": "^2.2.2",
+    "@randall-reilly/package-overdrive": "^2.2.2",
     "@randall-reilly/package-rigdig": "^2.2.0",
     "graphql": "^14.5.4",
     "graphql-tag": "^2.10.1"
