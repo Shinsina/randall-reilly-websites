@@ -81,4 +81,11 @@ module.exports = {
     name: 'Newsletter Just for Trucking Professionals',
     description: 'Get trucking news and insights, plus management tips and regulation updates — delivered straight to your inbox.',
   },
+  modal: {
+    ...baseConfig,
+    enabled: false,
+    cookieValueToMatch: 1,
+    name: 'Don’t Miss Out!!!',
+    description: 'Get owner-operator news and insights, plus diesel prices and gear reviews — delivered straight to your inbox.',
+  },
 };

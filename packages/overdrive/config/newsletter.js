@@ -77,4 +77,11 @@ module.exports = {
     name: 'Newsletter Just for Owner-Operators',
     description: 'Get owner-operator news and insights, plus diesel prices and gear reviews — delivered straight to your inbox.',
   },
+  modal: {
+    ...baseConfig,
+    enabled: true,
+    cookieValueToMatch: 1,
+    name: 'Don’t Miss Out!!!',
+    description: 'Get owner-operator news and insights, plus diesel prices and gear reviews — delivered straight to your inbox.',
+  },
 };
