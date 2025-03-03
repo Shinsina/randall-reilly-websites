@@ -79,7 +79,7 @@ module.exports = {
   },
   modal: {
     ...baseConfig,
-    enabled: true,
+    enabled: false,
     cookieValueToMatch: 1,
     name: 'Don’t Miss Out!!!',
     description: 'Get owner-operator news and insights, plus diesel prices and gear reviews — delivered straight to your inbox.',
