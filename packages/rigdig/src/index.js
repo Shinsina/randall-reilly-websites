@@ -38,7 +38,6 @@ module.exports = (app) => {
       } else {
         throw createError(`No records found for VIN ${vin}.`, 404);
       }
-      res.json(data.items[0]);
     } catch (error) {
       res.status(error.code || 500).json({ error: error.message });
     }

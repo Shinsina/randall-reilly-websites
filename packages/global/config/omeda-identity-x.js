@@ -1,6 +1,107 @@
 const { getOmedaCustomerRecord } = require('@mindful-web/marko-web-omeda-identity-x/omeda-data');
 const { get, getAsArray } = require('@mindful-web/object-path');
 
+/**
+ * Returns a promo code based on the source of the login action
+ *
+ * @param {RROIDXLoginSource} [loginSource]
+ * @param {RROIDXEventData} [data]
+ */
+const getPromoCodeFor = (loginSource, data = {}) => {
+  switch (loginSource) {
+    case 'newsletterSignup':
+      if (data.newsletterSignupType === 'inlineContent') return 'P1eNLInline';
+      if (data.newsletterSignupType === 'inlineSection') return 'P1eNLInline'; // @todo review!
+      if (data.newsletterSignupType === 'footer') return 'P1eNLFooter'; // @todo footer is dragon form
+      // @todo pushdown isn't an idx form...
+      // if (data.newsletterSignupType === 'pushdown') return 'P1eNLPushdown';
+      break;
+    case 'comments':
+      return 'P1Comments';
+    // Login originated from the content meter
+    case 'content_meter_login':
+      // If the overlay was displayed, this is a "metered gate"
+      if (data.displayOverlay) return 'P1MeterGate';
+      return 'P1Meter';
+    // Login originated from content that was explicitly gated (requiresRegistration)
+    case 'contentGate':
+      return 'P1HardGate';
+    case 'truckHistoryReport':
+      // @todo implement
+      return 'P1THR';
+    case 'loadAnalyzer':
+      return 'P1LoadAnalyzer';
+    case 'top250':
+      return 'P1CCJTop250';
+    default:
+      return 'P1Default';
+  }
+  return 'P1Default';
+};
+
+/**
+ * Sets subscription data for new users
+ *
+ * @param {object} o
+ * @param {object} [o.additionalEventData]
+ * @param {string} o.loginSource
+ * @param {object} o.payload
+ * @param {import('express').Request} o.req
+ * @returns
+ */
+const appendSubscriptions = async ({
+  additionalEventData,
+  loginSource,
+  payload,
+  req,
+}) => {
+  const identityXOptInHooks = req.app.locals.site.getAsObject('identityXOptInHooks');
+  const omeda = req.app.locals.site.getAsObject('omeda');
+
+  if (!identityXOptInHooks.onAuthenticationSuccess) return payload;
+  const { productIds } = identityXOptInHooks.onAuthenticationSuccess;
+  const { user } = payload;
+
+  const found = getAsArray(user, 'externalIds')
+    .find(({ identifier, namespace }) => identifier.type === 'encrypted'
+      && namespace.provider === 'omeda'
+      && namespace.tenant === omeda.brandKey);
+
+  // BAIL if no encryptedCustomerId and return payload
+  if (!found) return payload;
+  const encryptedCustomerId = get(found, 'identifier.value');
+
+  // Retrive the omeda customer
+  const omedaCustomer = await getOmedaCustomerRecord({
+    omedaGraphQLClient: req.$omedaGraphQLClient,
+    encryptedCustomerId,
+  });
+  // Get the current user subscriptions
+  const subscriptions = getAsArray(omedaCustomer, 'subscriptions');
+  // For each autoOptinProduct check if they have a subscription.
+  // Sign the user up if they do not
+
+  const newSubscriptions = productIds.filter(
+    (id) => !subscriptions.some(({ product }) => product.deploymentTypeId === id),
+  );
+
+  if (newSubscriptions && newSubscriptions.length) {
+    // eslint-disable-next-line no-param-reassign
+    additionalEventData.autoSignups = [];
+    const deploymentTypes = newSubscriptions.map((id) => {
+      // eslint-disable-next-line no-param-reassign
+      additionalEventData.autoSignups.push({
+        userId: user.id,
+        productId: id,
+        loginSource,
+      });
+      return { id, optedIn: true };
+    });
+    return { ...payload, deploymentTypes };
+  }
+  return payload;
+};
+
 module.exports = ({
   omedaConfig,
   idxConfig,
@@ -63,8 +164,11 @@ module.exports = ({
   appendPromoCodeToHook,
   appendBehaviorToHook,
   appendDemographicToHook,
-  onLoginLinkSentFormatter: (async ({ req, payload }) => {
-    // const identityXOptInHooks = req.app.locals.site.getAsObject('identityXOptInHooks');
+
+  /**
+   * @type {import('@mindful-web/marko-web-omeda-identity-x').OnLoginLinkSentFormatterFn}
+   */
+  onLoginLinkSentFormatter: async ({ req, payload }) => {
     const omeda = req.app.locals.site.getAsObject('omeda');
     const { user } = payload;
 
@@ -98,72 +202,35 @@ module.exports = ({
       };
     }
     return payload;
-  }),
-  onAuthenticationSuccessFormatter: (async ({
+  },
+
+  /**
+   * @type {import('@mindful-web/marko-web-omeda-identity-x').OnAuthenticationSuccessFormatterFn}
+   */
+  onAuthenticationSuccessFormatter: async ({
     req,
-    payload,
+    payload: incomingPayload,
     loginSource,
     additionalEventData,
   }) => {
-    // BAIL if omedaGraphQLCLient isnt available return payload.
-    if (!req.$omedaGraphQLClient) return payload;
+    // Set promo code based on source and event data
+    const promoCode = getPromoCodeFor(loginSource, additionalEventData);
 
-    const identityXOptInHooks = req.app.locals.site.getAsObject('identityXOptInHooks');
-    const omeda = req.app.locals.site.getAsObject('omeda');
-    if (identityXOptInHooks.onAuthenticationSuccess) {
-      const { productIds, promoCode } = identityXOptInHooks.onAuthenticationSuccess;
-      const { user } = payload;
+    // Set subscriptions
+    const payload = await appendSubscriptions({
+      additionalEventData,
+      loginSource,
+      payload: { ...incomingPayload, promoCode },
+      req,
+    });
 
-      const found = getAsArray(user, 'externalIds')
-        .find(({ identifier, namespace }) => identifier.type === 'encrypted'
-          && namespace.provider === 'omeda'
-          && namespace.tenant === omeda.brandKey);
+    return { ...payload, promoCode };
+  },
 
-      // BAIL if no encryptedCustomerId and return payload
-      if (!found) return payload;
-      const encryptedCustomerId = get(found, 'identifier.value');
-
-      // Retrive the omeda customer
-      const omedaCustomer = await getOmedaCustomerRecord({
-        omedaGraphQLClient: req.$omedaGraphQLClient,
-        encryptedCustomerId,
-      });
-      // Get the current user subscriptions
-      const subscriptions = getAsArray(omedaCustomer, 'subscriptions');
-      // For each autoOptinProduct check if they have a subscription.
-      // Sign the user up if they do not
-
-      const newSubscriptions = productIds.filter(
-        (id) => !subscriptions.some(({ product }) => product.deploymentTypeId === id),
-      );
-      if (newSubscriptions && newSubscriptions.length) {
-        // eslint-disable-next-line no-param-reassign
-        additionalEventData.autoSignups = [];
-        const deploymentTypes = newSubscriptions.map((id) => {
-          // eslint-disable-next-line no-param-reassign
-          additionalEventData.autoSignups.push({
-            userId: user.id,
-            productId: id,
-            loginSource,
-          });
-          return { id, optedIn: true };
-        });
-        return ({
-          ...payload,
-          deploymentTypes,
-          promoCode,
-          appendPromoCodes: [
-            { promoCode },
-          ],
-        });
-      }
-    }
-    return payload;
-  }),
-  onUserProfileUpdateFormatter: (async ({ req, payload }) => {
-    // BAIL if omedaGraphQLCLient isnt available return payload.
-    if (!req.$omedaGraphQLClient) return payload;
-
+  /**
+   * @type {import('@mindful-web/marko-web-omeda-identity-x').OnUserProfileUpdateFormatterFn}
+   */
+  onUserProfileUpdateFormatter: async ({ req, payload }) => {
     const identityXOptInHooks = req.app.locals.site.getAsObject('identityXOptInHooks');
     const omeda = req.app.locals.site.getAsObject('omeda');
     if (identityXOptInHooks.onUserProfileUpdate) {
@@ -196,42 +263,20 @@ module.exports = ({
           ],
         });
       }
-
-      // ###### CONDITIONALLY ADD PROMO DEMO WHEN NOT ALREADY SET ##### //
-      // // Get the current user subscriptions
-      // const demographics = getAsArray(omedaCustomer, 'demographics');
-
-      // // If the user profile completed demo for this doesnt exists, set it.
-      // const demosToAppend = appendDemographics.filter(({
-      //   demographicId,
-      // }) => !demographics.find(({ demographic }) => demographic.id === demographicId));
-      // if (demosToAppend && demosToAppend.length) {
-      //   return ({
-      //     ...payload,
-      //     appendDemographics: demosToAppend,
-      //     promoCode,
-      //     appendPromoCodes: [
-      //       { promoCode },
-      //     ],
-      //   });
-      // }
-      // ###### CONDITIONALLY ADD PROMO DEMO WHEN NOT ALREADY SET ##### //
-
-      // This is for second part of onUserProfileUpdate, but now 100% sure
-      // on how omeda intends on handeling this, so waiting for now
-      // const demosAlreadyAppended = appendDemographics.filter(({
-      //   demographicId,
-      // }) => demographics.find(({ demographic }) => demographic.id === demographicId));
-      // if (demosAlreadyAppended && demosAlreadyAppended.length) {
-      //   return ({
-      //     ...payload,
-      //     promoCode: `${promoCode}_now`,
-      //     appendPromoCodes: [
-      //       { promoCode: `${promoCode}_now` },
-      //     ],
-      //   });
-      // }
     }
     return payload;
-  }),
+  },
 });
+
+/**
+ * @typedef {("truckHistoryReport"|"loadAnalyzer"|"top250")} RRLoginSource
+ * @typedef {import('@mindful-web/marko-web-omeda-identity-x').OIDXLoginSource |
+ *   RRLoginSource} RROIDXLoginSource
+ *
+ * @typedef RROIDXEventData
+ * @prop {import('@mindful-web/marko-web-omeda-identity-x')
+ *   .OIDXNewsletterSource} [newsletterSignupType]
+ * @prop {import('@mindful-web/marko-web-omeda-identity-x')
+ *   .OIDXContentGateSource} [contentGateType]
+ * @prop {boolean} [contentMeterBlocked]
+ */

@@ -20,8 +20,9 @@ $ const description = "Know your costs, owner-operators? Compute the potential p
           <@section  modifiers=["user-form"]>
             <h1 class="page-wrapper__title">
               Log in to ${config.siteName()}
+              <!-- @todo better messaging here...log in to complete your load analyzer calculation...etc -->
             </h1>
-            <marko-web-identity-x-form-login />
+            <marko-web-identity-x-form-login source="loadAnalyzer" />
           </@section>
         </if>
         <else-if(!canAccess)>
