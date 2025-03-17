@@ -33,6 +33,8 @@ const getPromoCodeFor = (loginSource, data = {}) => {
       return 'P1LoadAnalyzer';
     case 'top250':
       return 'P1CCJTop250';
+    case 'pib_login':
+      return 'P1PIB';
     default:
       return 'P1Default';
   }

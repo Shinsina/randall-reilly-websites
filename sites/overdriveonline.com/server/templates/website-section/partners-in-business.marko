@@ -79,13 +79,11 @@ $ const logoSrcs = [
                 To access the playbook, complete your free registration on <em>Overdrive</em>.
               </p>
             </div>
-            <a
-              href="https://register.overdriveonline.com/pib-manual/"
-              title="Read More"
-              class="btn btn-primary pib-page-intro__download-btn"
-            >
-              Register Now
-            </a>
+            <marko-web-identity-x-form-login
+              login-email-placeholder="your@email.com"
+              source="pib_login"
+              additional-event-data={ promocode: 'P1PIB' }
+            />
           </div>
         </div>
       </div>
