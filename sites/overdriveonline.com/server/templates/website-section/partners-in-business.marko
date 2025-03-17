@@ -75,15 +75,17 @@ $ const logoSrcs = [
               <p>
                 <em>Overdrive</em> editors and ATBS present the industry’s best manual for prospective and committed owner-operators. You’ll find exceptional depth on many issues in the Partners in Business playbook.
               </p>
-              <p>
-                To access the playbook, complete your free registration on <em>Overdrive</em>.
-              </p>
             </div>
-            <marko-web-identity-x-form-login
-              login-email-placeholder="your@email.com"
-              source="pib_login"
-              additional-event-data={ promocode: 'P1PIB' }
-            />
+            <div class="pib-page-intro__user-form">
+              <p class="pib-page-intro__user-form-cta">
+                To access the playbook, complete your free registration.
+              </p>
+              <marko-web-identity-x-form-login
+                source="pib_login"
+                additional-event-data={ promocode: 'P1PIB' }
+                button-labels={ continue: "Register Now" }
+              />
+            </div>
           </div>
         </div>
       </div>

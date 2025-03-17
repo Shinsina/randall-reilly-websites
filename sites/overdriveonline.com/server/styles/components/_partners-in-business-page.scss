@@ -33,6 +33,10 @@
         display: none;
       }
     }
+    &__user-form-cta {
+      margin-bottom: 16px;
+      @include skin-typography($style: "small-body-text");
+    }
 
     &__inner-wrapper {
       display: flex;
