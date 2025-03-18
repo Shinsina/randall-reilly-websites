@@ -33,6 +33,11 @@
         display: none;
       }
     }
+
+    &__user-form {
+      max-width: 300px;
+    }
+
     &__user-form-cta {
       margin-bottom: 16px;
       @include skin-typography($style: "small-body-text");
