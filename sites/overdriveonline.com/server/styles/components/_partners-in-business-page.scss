@@ -1,4 +1,5 @@
 .pib-page {
+  $self: &;
   &__header {
     padding-bottom: 40px;
     text-align: center;
@@ -14,23 +15,96 @@
     @include skin-typography($style: "pib-description");
   }
 
-  &__partners-label {
-    margin-bottom: 20px;
-    @include skin-typography($style: "pib-partners");
-    text-transform: uppercase;
-  }
+  &-intro {
+    border-radius: 25px;
+    border: 2px solid $gray-100;
+    height: 100%;
+    padding: map-get($spacers, block);
 
-  &__partner-logos {
+    &__title {
+      margin-bottom: 8px;
+      @include skin-typography($style: "header-2");
+    }
+
+    &__description {
+      margin-bottom: 16px;
+      @include skin-typography($style: "small-body-text");
+      @media (max-width: 980px) {
+        display: none;
+      }
+    }
+
+    &__user-form {
+      max-width: 300px;
+    }
+
+    &__user-form-cta {
+      margin-bottom: 16px;
+      @include skin-typography($style: "small-body-text");
+    }
+
+    &__inner-wrapper {
+      display: flex;
+    }
+
+    &__body-wrapper {
+      flex-grow: 2;
+    }
+
+    &__img-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__issue-cover {
+      align-self: flex-start;
+      width: 120px;
+      margin-right: 24px;
+    }
+  }
+  &__toc-feature-wrapper {
     display: flex;
-    justify-content: center;
-  }
+    flex-direction: row;
+    @include media-breakpoint-down(md) {
+      flex-direction: column;
+    }
 
-  &__partner-logo-1 {
-    width: 88px;
-    margin-right: 22px;
-  }
-
-  &__partner-logo-2 {
-    width: 148px;
+    #{ $self } {
+      &__title {
+        margin-bottom: 8px;
+        @include skin-typography($style: "header-2");
+      }
+      &__toc {
+        padding: map-get($spacers, block);
+        @include media-breakpoint-up(md) {
+          @include make-col(4);
+        }
+        ol{
+          padding-left: 0;
+          padding-right: 0;
+          font-weight: bold;
+          font-size: 16px;
+        }
+        li {
+          list-style-position: inside;
+          text-indent: -1em;
+          padding: 10px 2em;
+          background-color: $gray-100;
+          font-weight: bold;
+          a,
+          a:hover,
+          a:visited {
+            color: $black;
+          }
+          margin-bottom: map-get($spacers, 2)
+        }
+      }
+      &__features {
+        padding: map-get($spacers, block);
+        @include media-breakpoint-up(md) {
+          @include make-col(8);
+        }
+      }
+    }
   }
 }
