@@ -29,7 +29,7 @@ $ const nativeX = {
       excludeContentTypes: ["Contact", "Company", "Document", "Product", "Promotion", "TextAd"],
       queryFragment: storiesQueryFragment
     };
-    <marko-web-query|{ nodes }| name="website-scheduled-content" params=params >
+    <marko-web-query|{ nodes }| name="website-scheduled-content" params=params collapsible=false>
       <!-- if there is content & date.now is even(a/b) -->
       <if(nodes.length && (Date.now() % 2 == 0))>
         <div class=`content-card-deck content-card-deck__${blockName}`>
