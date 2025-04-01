@@ -2,7 +2,6 @@ import { getAsArray, getAsObject, get } from "@mindful-web/object-path";
 import contentIframe from "@randall-reilly/package-global/utils/content-iframe";
 import hasOmedaId from "@mindful-web/marko-web-theme-monorail/utils/has-omeda-id";
 import getContentPreview from "@mindful-web/marko-web-theme-monorail/utils/get-content-preview";
-import storiesQueryFragment from "@mindful-web/marko-web-theme-monorail/graphql/fragments/related-stories-block";
 import renderSiteNewsletterMenu from "@mindful-web/marko-web-theme-monorail/utils/render-site-newsletter-menu";
 import widget from "@randall-reilly/package-rigdig/components/widget";
 
@@ -296,17 +295,12 @@ $ const bypassGate = hasOmedaId(req);
               </div>
             </if>
 
-            <div class="content-card-deck content-card-deck__related-stories">
-              <div class="content-card-deck__wrapper" style="max-width: 1100px;">
-                <theme-related-stories-block
-                  content-id=content.id
-                  section-id=content.primarySection.id
-                  published=content.published
-                  with-native-x=true
-                  native-x={ name: "partner-insights", sectionName: "Partner Insights" }
-                />
-              </div>
-            </div>
+            <global-content-by-idx-role-block
+              title="Next Read"
+              content=content
+              with-native-x=true
+              native-x={ name: "partner-insights", sectionName: "Partner Insights" }
+            />
 
             <if(displayReadNext)>
               <theme-read-next-block

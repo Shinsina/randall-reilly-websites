@@ -218,6 +218,7 @@
 /*! critical:start|home|content */
 /*! purgecss start ignore */
 @import "./components/blocks/thr-vin-lookup-promo-card";
+@import "./components/blocks/recommended-stories";
 /*! purgecss end ignore */
 /*! critical:end */
 /*! critical:start|content */
@@ -587,10 +588,12 @@ label {
     padding: 16px 24px;
   }
   .content-card-deck {
-    &__related-stories {
+    &__related-stories,
+    &__recommended-stories {
       margin-top: 0;
       margin-bottom: 2rem;
-      .related-stories {
+      .related-stories,
+      .recommended-stories {
         &__header {
           text-transform: none;
           font-size: 1.5rem;
