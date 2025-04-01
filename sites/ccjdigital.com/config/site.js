@@ -9,6 +9,7 @@ const omeda = require('./omeda');
 const omedaIdentityX = require('./omeda-identity-x');
 const search = require('./search');
 const top250 = require('./top250');
+const mapAliasByIdxRole = require('./map-alias-by-idx-role');
 
 module.exports = {
   // module configs
@@ -17,6 +18,7 @@ module.exports = {
   useLinkInjectedBody: process.env.USE_LINK_INJECTED_BODY === 'true',
   identityX,
   identityXOptInHooks,
+  mapAliasByIdxRole,
   mindful: {
     namespace: 'rr/default',
   },
