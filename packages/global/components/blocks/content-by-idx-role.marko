@@ -1,0 +1,97 @@
+import { getAsObject } from "@mindful-web/object-path";
+import defaultValue from "@mindful-web/marko-core/utils/default-value";
+import storiesQueryFragment from "@mindful-web/marko-web-theme-monorail/graphql/fragments/related-stories-block";
+
+$ const { site, i18n } = out.global;
+
+$ const blockName = "recommended-stories"
+$ const title = i18n(defaultValue(input.title, "Next Read"));
+$ const mapAliasByIdxRole = site.getAsObject("mapAliasByIdxRole")
+$ const content = getAsObject(input, "content");
+$ const { questionId, map } = mapAliasByIdxRole
+$ const withNativeX = defaultValue(input.withNativeX, false);
+$ const nativeX = {
+  name: "default",
+  index: 3,
+  sectionName: `${i18n("Sponsored Content")}`,
+  ...input.nativeX,
+};
+<marko-web-identity-x-context|{ hasUser, user }|>
+  <if(hasUser && user && map && questionId)>
+    $ const customSelectFieldAnswer = user.customSelectFieldAnswers.find(({ id }) => id === questionId);
+    $ const sectionAlias = customSelectFieldAnswer && customSelectFieldAnswer.answers.length ? map[customSelectFieldAnswer.answers[0].externalIdentifier] : null;
+    <!-- Ensure user has answered the question and there's a mapped section and flip a coin. -->
+    <if(sectionAlias && (Date.now() % 2 == 0))>
+      $ const params = {
+        sectionAlias,
+        since: content.published,
+        limit: 4,
+        excludeContentIds: [content.id],
+        requiresImage: true,
+        excludeContentTypes: ["Contact", "Company", "Document", "Product", "Promotion", "TextAd"],
+        queryFragment: storiesQueryFragment
+      };
+      <marko-web-query|{ nodes }| name="website-scheduled-content" params=params collapsible=false>
+        <!-- if there is content & date.now is even(a/b) -->
+        <if(nodes.length)>
+          <div class=`content-card-deck content-card-deck__${blockName}`>
+            <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+              <marko-web-block name=blockName attrs={ role: "region", "aria-label": title }>
+                <marko-web-element block-name=blockName name="header">
+                  ${title}
+                </marko-web-element>
+                <theme-content-card-deck-col-flow
+                  nodes=nodes
+                  modifiers=[blockName]
+                  ...(withNativeX && { nativeX })
+                >
+                  <@node modifiers=[blockName] ...input.node />
+                </theme-content-card-deck-col-flow>
+              </marko-web-block>
+            </div>
+          </div>
+        </if>
+        <!-- fail safe if its miss configured or missing or no content is mapped -->
+        <else>
+          <div class="content-card-deck content-card-deck__related-stories">
+            <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+              <theme-related-stories-block
+                content-id=content.id
+                section-id=content.primarySection.id
+                published=content.published
+                with-native-x=withNativeX
+                native-x=nativeX
+              />
+            </div>
+          </div>
+        </else>
+      </marko-web-query>
+    </if>
+    <else>
+      <div class="content-card-deck content-card-deck__related-stories">
+        <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+          <theme-related-stories-block
+            content-id=content.id
+            section-id=content.primarySection.id
+            published=content.published
+            with-native-x=withNativeX
+            native-x=nativeX  ``
+          />
+        </div>
+      </div>
+    </else>
+  </if>
+  <else>
+    <div class="content-card-deck content-card-deck__related-stories">
+      <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+        <theme-related-stories-block
+          content-id=content.id
+          section-id=content.primarySection.id
+          published=content.published
+          with-native-x=withNativeX
+          native-x=nativeX  ``
+        />
+      </div>
+    </div>
+  </else>
+</marko-web-identity-x-context>

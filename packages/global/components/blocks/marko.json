@@ -8,6 +8,9 @@
   "<global-ccj-top-250-block>": {
     "template": "./ccj-top-250.marko"
   },
+  "<global-content-by-idx-role-block>": {
+    "template": "./content-by-idx-role.marko"
+  },
   "<global-ovd-pib-manual-promo-block>": {
     "template": "./ovd-pib-manual-promo.marko"
   },

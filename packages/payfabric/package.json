@@ -1,6 +1,6 @@
 {
   "name": "@randall-reilly/package-payfabric",
-  "version": "2.0.0",
+  "version": "2.4.0",
   "author": "Josh Worden <josh@parameter1.com>",
   "repository": "https://github.com/parameter1/randall-reilly-websites/tree/master/packages/payfabric",
   "license": "MIT",
@@ -12,8 +12,8 @@
     "test": "yarn lint"
   },
   "dependencies": {
-    "@mindful-web/object-path": "^1.0.0",
-    "@mindful-web/utils": "^1.0.0",
+    "@mindful-web/object-path": "^1.11.9",
+    "@mindful-web/utils": "^1.11.9",
     "debug": "^4.3.4",
     "envalid": "^7.3.1",
     "express": "^4.18.2",
