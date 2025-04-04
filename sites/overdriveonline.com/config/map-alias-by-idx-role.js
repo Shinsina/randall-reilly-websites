@@ -1,7 +1,6 @@
 module.exports = {
   questionId: '62599fd70e2f690ce40599e1',
-  map: {},
-  setAsMapToEnable: {
+  map: {
     // { sectionId: 119363, sectionName: 'Owner/Operator leased to a for-hire carrier' }
     380: 'recommended/owner-operator-leased-to-a-for-hire-carrier',
     // { sectionId: 119364, sectionName: 'Owner with own authority to haul freight (for-hire)' }

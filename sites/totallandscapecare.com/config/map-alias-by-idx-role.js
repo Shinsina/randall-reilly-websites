@@ -1,8 +1,6 @@
 module.exports = {
   questionId: '6259c321c28d542111bf125c',
-  map: {},
-  // @todo verify that the idx map is correct as they match equipments values.?.?.?
-  setAsMapToEnable: {
+  map: {
     // { sectionId: 119369, sectionName: 'Corporate Management/Owner' }
     265: 'recommended/corporate-management-owner',
     // { sectionId: 119370, sectionName: 'Safety/Operations Management' }
