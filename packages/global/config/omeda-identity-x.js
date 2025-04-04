@@ -110,7 +110,6 @@ const appendSubscriptions = async ({
       });
       return { id, optedIn: true };
     });
-    console.log('hittingAutosignup: ', additionalEventData)
     return { ...payload, additionalEventData, deploymentTypes };
   }
   return payload;
