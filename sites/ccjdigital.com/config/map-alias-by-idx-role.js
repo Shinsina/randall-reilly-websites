@@ -1,7 +1,6 @@
 module.exports = {
   questionId: '6259c0f80e2f6901fb059a15',
-  map: {},
-  setAsMapToEnable: {
+  map: {
     // { sectionId: 119328, sectionName: 'Corporate Management/Owner' }
     114: 'recommended/corporate-manager-owner',
     // { sectionId: 119329, sectionName: 'Operations/Safety Management' }

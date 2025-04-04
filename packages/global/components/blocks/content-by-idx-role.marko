@@ -8,7 +8,7 @@ $ const blockName = "recommended-stories"
 $ const title = i18n(defaultValue(input.title, "Next Read"));
 $ const mapAliasByIdxRole = site.getAsObject("mapAliasByIdxRole")
 $ const content = getAsObject(input, "content");
-$ const { questionId, map } = mapAliasByIdxRole
+$ const { questionId, map } = mapAliasByIdxRole;
 $ const withNativeX = defaultValue(input.withNativeX, false);
 $ const nativeX = {
   name: "default",
@@ -35,6 +35,10 @@ $ const nativeX = {
         <!-- if there is content & date.now is even(a/b) -->
         <if(nodes.length)>
           <div class=`content-card-deck content-card-deck__${blockName}`>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({experiment: 'recommended_content|variant'});
+            </script>
             <div class="content-card-deck__wrapper" style="max-width: 1100px;">
               <marko-web-block name=blockName attrs={ role: "region", "aria-label": title }>
                 <marko-web-element block-name=blockName name="header">
@@ -54,6 +58,10 @@ $ const nativeX = {
         <!-- fail safe if its miss configured or missing or no content is mapped -->
         <else>
           <div class="content-card-deck content-card-deck__related-stories">
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({experiment: 'recommended_content|original'});
+            </script>
             <div class="content-card-deck__wrapper" style="max-width: 1100px;">
               <theme-related-stories-block
                 content-id=content.id
@@ -69,6 +77,10 @@ $ const nativeX = {
     </if>
     <else>
       <div class="content-card-deck content-card-deck__related-stories">
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({experiment: 'recommended_content|original'});
+        </script>
         <div class="content-card-deck__wrapper" style="max-width: 1100px;">
           <theme-related-stories-block
             content-id=content.id
@@ -83,6 +95,10 @@ $ const nativeX = {
   </if>
   <else>
     <div class="content-card-deck content-card-deck__related-stories">
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({experiment: 'recommended_content|original'});
+      </script>
       <div class="content-card-deck__wrapper" style="max-width: 1100px;">
         <theme-related-stories-block
           content-id=content.id
