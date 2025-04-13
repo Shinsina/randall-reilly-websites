@@ -31,7 +31,7 @@
     "@mindful-web/marko-web-p1-events": "^1.13.0",
     "@mindful-web/marko-web-search": "^1.11.9",
     "@mindful-web/marko-web-social-sharing": "^1.11.9",
-    "@mindful-web/marko-web-theme-monorail": "^1.14.0",
+    "@mindful-web/marko-web-theme-monorail": "^1.15.0",
     "@mindful-web/mindful": "^1.11.9",
     "@mindful-web/object-path": "^1.11.9",
     "@mindful-web/utils": "^1.11.9",
