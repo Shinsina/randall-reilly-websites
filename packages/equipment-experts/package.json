@@ -16,7 +16,7 @@
   "dependencies": {
     "@mindful-web/embedded-media": "^1.0.0",
     "@mindful-web/image": "^1.0.0",
-    "@mindful-web/marko-web": "^1.11.9",
+    "@mindful-web/marko-web": "^1.16.0",
     "@mindful-web/object-path": "^1.11.9",
     "@mindful-web/utils": "^1.11.9",
     "apollo-cache-inmemory": "^1.6.6",
