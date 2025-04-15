@@ -16,71 +16,87 @@ $ const nativeX = {
   sectionName: `${i18n("Sponsored Content")}`,
   ...input.nativeX,
 };
-<marko-web-identity-x-context|{ hasUser, user }|>
-  <if(hasUser && user && map && questionId)>
-    $ const customSelectFieldAnswer = user.customSelectFieldAnswers.find(({ id }) => id === questionId);
-    $ const sectionAlias = customSelectFieldAnswer && customSelectFieldAnswer.answers.length ? map[customSelectFieldAnswer.answers[0].externalIdentifier] : null;
-    <!-- Ensure user has answered the question and there's a mapped section and flip a coin. -->
-    <if(sectionAlias && (Date.now() % 2 == 0))>
-      $ const params = {
-        sectionAlias,
-        since: content.published,
-        limit: 4,
-        excludeContentIds: [content.id],
-        requiresImage: true,
-        excludeContentTypes: ["Contact", "Company", "Document", "Product", "Promotion", "TextAd"],
-        queryFragment: storiesQueryFragment
-      };
-      <marko-web-query|{ nodes }| name="website-scheduled-content" params=params collapsible=false>
-        <!-- if there is content & date.now is even(a/b) -->
-        <if(nodes.length)>
-          <div class=`content-card-deck content-card-deck__${blockName}`>
-            <script>
-              window.dataLayer = window.dataLayer || [];
-              window.dataLayer.push({experiment: 'recommended_content|variant'});
-            </script>
-            <div class="content-card-deck__wrapper" style="max-width: 1100px;">
-              <marko-web-block name=blockName attrs={ role: "region", "aria-label": title }>
-                <marko-web-element block-name=blockName name="header">
-                  ${title}
-                </marko-web-element>
-                <theme-content-card-deck-col-flow
-                  nodes=nodes
-                  modifiers=[blockName]
-                  ...(withNativeX && { nativeX })
-                >
-                  <@node modifiers=[blockName] ...input.node />
-                </theme-content-card-deck-col-flow>
-              </marko-web-block>
+<marko-web-identity-x-context|{ hasUser, user: authenticatedUser }|>
+  <marko-web-identity-x-non-auth-identify|{ user: identifiedUser }|>
+    $ const user = (hasUser && authenticatedUser) ? authenticatedUser : identifiedUser;
+    <if(user && map && questionId)>
+      $ const customSelectFieldAnswer = user.customSelectFieldAnswers.find(({ id }) => id === questionId);
+      $ const sectionAlias = customSelectFieldAnswer && customSelectFieldAnswer.answers.length ? map[customSelectFieldAnswer.answers[0].externalIdentifier] : null;
+      <!-- Ensure user has answered the question and there's a mapped section and flip a coin. -->
+      <if(sectionAlias && (Date.now() % 2 == 0))>
+        $ const params = {
+          sectionAlias,
+          since: content.published,
+          limit: 4,
+          excludeContentIds: [content.id],
+          requiresImage: true,
+          excludeContentTypes: ["Contact", "Company", "Document", "Product", "Promotion", "TextAd"],
+          queryFragment: storiesQueryFragment
+        };
+        <marko-web-query|{ nodes }| name="website-scheduled-content" params=params collapsible=false>
+          <!-- if there is content & date.now is even(a/b) -->
+          <if(nodes.length)>
+            <div class=`content-card-deck content-card-deck__${blockName}`>
+              <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({experiment: 'recommended_content|variant'});
+              </script>
+              <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+                <marko-web-block name=blockName attrs={ role: "region", "aria-label": title }>
+                  <marko-web-element block-name=blockName name="header">
+                    ${title}
+                  </marko-web-element>
+                  <theme-content-card-deck-col-flow
+                    nodes=nodes
+                    modifiers=[blockName]
+                    ...(withNativeX && { nativeX })
+                  >
+                    <@node modifiers=[blockName] ...input.node />
+                  </theme-content-card-deck-col-flow>
+                </marko-web-block>
+              </div>
             </div>
-          </div>
-        </if>
-        <!-- fail safe if its miss configured or missing or no content is mapped -->
-        <else>
-          <div class="content-card-deck content-card-deck__related-stories">
-            <script>
-              window.dataLayer = window.dataLayer || [];
-              window.dataLayer.push({experiment: 'recommended_content|original'});
-            </script>
-            <div class="content-card-deck__wrapper" style="max-width: 1100px;">
-              <theme-related-stories-block
-                content-id=content.id
-                section-id=content.primarySection.id
-                published=content.published
-                with-native-x=withNativeX
-                native-x=nativeX
-              />
+          </if>
+          <!-- fail safe if its miss configured or missing or no content is mapped -->
+          <else>
+            <div class="content-card-deck content-card-deck__related-stories">
+              <script>
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({experiment: 'recommended_content|original'});
+              </script>
+              <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+                <theme-related-stories-block
+                  content-id=content.id
+                  section-id=content.primarySection.id
+                  published=content.published
+                  with-native-x=withNativeX
+                  native-x=nativeX
+                />
+              </div>
             </div>
+          </else>
+        </marko-web-query>
+      </if>
+      <else>
+        <div class="content-card-deck content-card-deck__related-stories">
+          <script>
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({experiment: 'recommended_content|original'});
+          </script>
+          <div class="content-card-deck__wrapper" style="max-width: 1100px;">
+            <theme-related-stories-block
+              content-id=content.id
+              section-id=content.primarySection.id
+              published=content.published
+              with-native-x=withNativeX
+              native-x=nativeX  ``
+            />
           </div>
-        </else>
-      </marko-web-query>
+        </div>
+      </else>
     </if>
     <else>
       <div class="content-card-deck content-card-deck__related-stories">
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({experiment: 'recommended_content|original'});
-        </script>
         <div class="content-card-deck__wrapper" style="max-width: 1100px;">
           <theme-related-stories-block
             content-id=content.id
@@ -92,18 +108,5 @@ $ const nativeX = {
         </div>
       </div>
     </else>
-  </if>
-  <else>
-    <div class="content-card-deck content-card-deck__related-stories">
-      <div class="content-card-deck__wrapper" style="max-width: 1100px;">
-        <theme-related-stories-block
-          content-id=content.id
-          section-id=content.primarySection.id
-          published=content.published
-          with-native-x=withNativeX
-          native-x=nativeX  ``
-        />
-      </div>
-    </div>
-  </else>
+  </marko-web-identity-x-non-auth-identify>
 </marko-web-identity-x-context>
