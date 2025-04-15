@@ -4,7 +4,7 @@ import storiesQueryFragment from "@mindful-web/marko-web-theme-monorail/graphql/
 
 $ const { site, i18n } = out.global;
 
-$ const blockName = "recommended-stories"
+$ const blockName = "related-stories"
 $ const title = i18n(defaultValue(input.title, "Next Read"));
 $ const mapAliasByIdxRole = site.getAsObject("mapAliasByIdxRole")
 $ const content = getAsObject(input, "content");
@@ -36,7 +36,7 @@ $ const nativeX = {
         <marko-web-query|{ nodes }| name="website-scheduled-content" params=params collapsible=false>
           <!-- if there is content & date.now is even(a/b) -->
           <if(nodes.length)>
-            <div class=`content-card-deck content-card-deck__${blockName}`>
+            <div class=`content-card-deck content-card-deck__related-stories`>
               <script>
                 window.dataLayer = window.dataLayer || [];
                 window.dataLayer.push({experiment: 'recommended_content|variant'});
@@ -89,7 +89,7 @@ $ const nativeX = {
               section-id=content.primarySection.id
               published=content.published
               with-native-x=withNativeX
-              native-x=nativeX  ``
+              native-x=nativeX
             />
           </div>
         </div>
