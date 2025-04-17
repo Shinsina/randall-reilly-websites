@@ -85,7 +85,10 @@ $ const bypassGate = hasOmedaId(req);
             </if>
           </if>
           <else-if(type === "media-gallery")>
-            <!-- <marko-web-image-slider images=images /> -->
+            $ const allImages = getAsArray(content, "images.edges").map(edge => edge.node);
+            $ const inCarouselImages = getAsArray(content, "images.edges").map(edge => edge.node).filter(node => node.inCarousel);
+            $ const images = inCarouselImages.length ? inCarouselImages : allImages;
+            <marko-web-image-slider images=images />
           </else-if>
           <else-if(displayPrimaryImage)>
             $ let forceDisplay;
