@@ -24,6 +24,9 @@
     "<below-container>": {},
     "<foot>": {}
   },
+  "<global-image-slider>": {
+    "template": "./image-slider.marko"
+  },
   "<global-content-query-with-injected-native-ads>": {
     "template": "./content-query-with-injected-native-ads.marko"
   },
