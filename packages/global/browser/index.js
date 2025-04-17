@@ -2,7 +2,6 @@ import MonoRail from '@mindful-web/marko-web-theme-monorail/browser';
 
 const LoadAnalyzer = () => import(/* webpackChunkName: "load-analyzer" */ './load-analyzer.vue');
 const LoadToggler = () => import(/* webpackChunkName: "load-toggler" */ './load-toggler.vue');
-const ImageSlider = () => import(/* webpackChunkName: "global-image-slider" */ './image-slider.vue');
 
 export default (Browser) => {
   const { EventBus } = Browser;
@@ -13,8 +12,6 @@ export default (Browser) => {
       window.dataLayer.push({ event: 'identity-x-created-new-user', newIdentityXUser });
     }
   });
-
-  Browser.register('GlobalImageSlider', ImageSlider);
 
   Browser.register('LoadAnalyzer', LoadAnalyzer, { provide: { EventBus } });
   Browser.register('LoadToggler', LoadToggler);

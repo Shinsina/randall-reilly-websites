@@ -73,19 +73,6 @@ $ const bypassGate = hasOmedaId(req);
   <@section|{ aliases, content, authors, alias }| modifiers=["content-body"]>
     $ const { primarySection } = content;
     <div class="content-page-body" role="region" aria-label="Content Body">
-      <if(type === "media-gallery")>
-        <theme-page-contents|{ blockName }| attrs={ "data-gallery-id": id }>
-          $ const allImages = getAsArray(content, "images.edges").map(edge => edge.node);
-          $ const inCarouselImages = getAsArray(content, "images.edges").map(edge => edge.node).filter(node => node.inCarousel);
-          $ const images = inCarouselImages.length ? inCarouselImages : allImages;
-
-          <global-image-slider
-            modifiers=["project-gallery"]
-            images=images
-            image-options={ fit: "crop", w: 879, h: 586, auto: "format,compress" }
-          />
-        </theme-page-contents>
-      </if>
       <theme-page-contents|{ blockName }| attrs={ "data-gallery-id": id }>
         <if(!showOverlay)>
           <if(content.embedCode)>
@@ -98,7 +85,10 @@ $ const bypassGate = hasOmedaId(req);
             </if>
           </if>
           <else-if(type === "media-gallery")>
-            <!-- <marko-web-image-slider images=images /> -->
+            $ const allImages = getAsArray(content, "images.edges").map(edge => edge.node);
+            $ const inCarouselImages = getAsArray(content, "images.edges").map(edge => edge.node).filter(node => node.inCarousel);
+            $ const images = inCarouselImages.length ? inCarouselImages : allImages;
+            <marko-web-image-slider images=images />
           </else-if>
           <else-if(displayPrimaryImage)>
             $ let forceDisplay;
