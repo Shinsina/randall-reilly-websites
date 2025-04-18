@@ -1,4 +1,5 @@
 const { getOmedaCustomerRecord } = require('@mindful-web/marko-web-omeda-identity-x/omeda-data');
+const buildSubscriptionEntity = require('@mindful-web/marko-web-identity-x/utils/build-subscription-entity');
 const { get, getAsArray } = require('@mindful-web/object-path');
 
 /**
@@ -52,6 +53,7 @@ const getPromoCodeFor = (loginSource, data = {}) => {
  * @returns
  */
 const appendSubscriptions = async ({
+  omedaConfig,
   additionalEventData,
   loginSource,
   payload,
@@ -90,16 +92,25 @@ const appendSubscriptions = async ({
   if (newSubscriptions && newSubscriptions.length) {
     // eslint-disable-next-line no-param-reassign
     additionalEventData.autoSignups = [];
+    const { newsletterSignupType } = additionalEventData;
     const deploymentTypes = newSubscriptions.map((id) => {
       // eslint-disable-next-line no-param-reassign
       additionalEventData.autoSignups.push({
         userId: user.id,
         productId: id,
         loginSource,
+        actionSource: loginSource,
+        ...(newsletterSignupType && { newsletterSignupType }),
+        subscriptionEntity: buildSubscriptionEntity({
+          provider: 'omeda',
+          tenant: omedaConfig.brandKey,
+          type: 'product',
+          identifier: id,
+        }),
       });
       return { id, optedIn: true };
     });
-    return { ...payload, deploymentTypes };
+    return { ...payload, additionalEventData, deploymentTypes };
   }
   return payload;
 };
@@ -217,16 +228,16 @@ module.exports = ({
   }) => {
     // Set promo code based on source and event data
     const promoCode = getPromoCodeFor(loginSource, additionalEventData);
-
     // Set subscriptions
     const payload = await appendSubscriptions({
+      omedaConfig,
       additionalEventData,
       loginSource,
       payload: { ...incomingPayload, promoCode },
       req,
     });
 
-    return { ...payload, promoCode };
+    return { ...payload, additionalEventData, promoCode };
   },
 
   /**
