@@ -17,7 +17,7 @@
     "@mindful-web/marko-core": "^1.16.0",
     "@mindful-web/marko-web": "^1.16.0",
     "@mindful-web/marko-web-icons": "^1.0.0",
-    "@mindful-web/marko-web-identity-x": "^1.16.0",
+    "@mindful-web/marko-web-identity-x": "^1.17.0",
     "@mindful-web/object-path": "^1.11.9",
     "@mindful-web/utils": "^1.11.9",
     "@randall-reilly/package-payfabric": "^2.4.0",
