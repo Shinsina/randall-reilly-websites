@@ -12,4 +12,10 @@ config
     { name: 'partner-insights', id: '61f5aefe8ec1b500012be0f6' },
   ]);
 
+config
+  .setAliasPlacements('preventable-or-not', [
+    { name: 'default', id: '68059ee1f19116cde54e99c7' },
+    { name: 'partner-insights', id: '68059ef0f19116cde54e99c9' },
+  ]);
+
 module.exports = config;
