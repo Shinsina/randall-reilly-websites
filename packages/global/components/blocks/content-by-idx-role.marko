@@ -19,11 +19,11 @@ $ const nativeX = {
 <marko-web-identity-x-context|{ hasUser, user: authenticatedUser }|>
   <marko-web-identity-x-non-auth-identify|{ user: identifiedUser }|>
     $ const user = (hasUser && authenticatedUser) ? authenticatedUser : identifiedUser;
-    <if(user && map && questionId)>
-      $ const customSelectFieldAnswer = user.customSelectFieldAnswers.find(({ id }) => id === questionId);
-      $ const sectionAlias = customSelectFieldAnswer && customSelectFieldAnswer.answers.length ? map[customSelectFieldAnswer.answers[0].externalIdentifier] : null;
-      <!-- Ensure user has answered the question and there's a mapped section and flip a coin. -->
-      <if(sectionAlias && (Date.now() % 2 == 0))>
+    $ const customSelectFieldAnswer = user.customSelectFieldAnswers.find(({ id }) => id === questionId);
+    $ const sectionAlias = customSelectFieldAnswer && customSelectFieldAnswer.answers.length ? map[customSelectFieldAnswer.answers[0].externalIdentifier] : null;
+    <if(user && sectionAlias)>
+      <!-- Flip a coin. -->
+      <if(Date.now() % 2 == 0)>
         $ const params = {
           sectionAlias,
           since: content.published,
