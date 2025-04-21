@@ -19,7 +19,7 @@ $ const nativeX = {
 <marko-web-identity-x-context|{ hasUser, user: authenticatedUser }|>
   <marko-web-identity-x-non-auth-identify|{ user: identifiedUser }|>
     $ const user = (hasUser && authenticatedUser) ? authenticatedUser : identifiedUser;
-    $ const customSelectFieldAnswer = user.customSelectFieldAnswers.find(({ id }) => id === questionId);
+    $ const customSelectFieldAnswer = (user) ? user.customSelectFieldAnswers.find(({ id }) => id === questionId) : null;
     $ const sectionAlias = customSelectFieldAnswer && customSelectFieldAnswer.answers.length ? map[customSelectFieldAnswer.answers[0].externalIdentifier] : null;
     <if(user && sectionAlias)>
       <!-- Flip a coin. -->
