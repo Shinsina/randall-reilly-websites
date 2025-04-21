@@ -298,7 +298,7 @@ $ const bypassGate = hasOmedaId(req);
               </div>
             </if>
 
-            $ const name = (aliases[0] === 'preventable-or-not') ? aliases[0] : 'default';
+            $ const name = (aliases && aliases.length && aliases[0] === 'preventable-or-not') ? aliases[0] : 'default';
             <global-content-by-idx-role-block
               title="Next Read"
               content=content
