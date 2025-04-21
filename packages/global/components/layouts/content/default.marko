@@ -298,11 +298,12 @@ $ const bypassGate = hasOmedaId(req);
               </div>
             </if>
 
+            $ const name = alias === 'preventable-or-not' ? alias : 'default';
             <global-content-by-idx-role-block
               title="Next Read"
               content=content
               with-native-x=true
-              native-x={ name: "partner-insights", sectionName: "Partner Insights" }
+              native-x={ name: "partner-insights", sectionName: "Partner Insights", name }
             />
 
             <if(displayReadNext)>
