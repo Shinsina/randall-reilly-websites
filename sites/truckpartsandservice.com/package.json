@@ -35,7 +35,7 @@
     "@mindful-web/marko-web": "^1.16.0",
     "@mindful-web/marko-web-gtm": "^1.11.9",
     "@mindful-web/marko-web-leaders": "^1.16.0",
-    "@mindful-web/marko-web-theme-monorail": "^1.17.0",
+    "@mindful-web/marko-web-theme-monorail": "^1.17.3",
     "@mindful-web/object-path": "^1.11.9",
     "@mindful-web/utils": "^1.11.9",
     "@mindful-web/web-cli": "^1.11.9",
