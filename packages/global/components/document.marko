@@ -131,9 +131,6 @@ $ const { gamDefer, gtmDefer } = req.query;
   <@below-container>
     <${input.belowContainer} />
     <theme-site-footer use-idx-newsletter-signup=false />
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ ASN: req.get('x-asn') || '' });
-    </script>
+    <marko-web-gtm-push data={ ASN: req.get('x-asn') || '' } />
   </@below-container>
 </marko-web-document>
