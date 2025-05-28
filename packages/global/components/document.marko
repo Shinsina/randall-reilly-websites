@@ -12,6 +12,7 @@ $ const {
 
 $ const omedaConfig = site.get('omeda');
 $ const includeOsano = site.get('includeOsano', false);
+$ console.log(req.get('host'));
 
 $ const { gamDefer, gtmDefer } = req.query;
 
@@ -131,5 +132,9 @@ $ const { gamDefer, gtmDefer } = req.query;
   <@below-container>
     <${input.belowContainer} />
     <theme-site-footer use-idx-newsletter-signup=false />
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ ASN: req.get('x-asn') || '' });
+    </script>
   </@below-container>
 </marko-web-document>
