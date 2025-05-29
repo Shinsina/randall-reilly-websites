@@ -52,7 +52,7 @@ $ const { gamDefer, gtmDefer } = req.query;
 
     <!-- init gam -->
     <!-- Push gamDeferOn prop to use in GTM in order to trigger googletags correctly -->
-    <marko-web-gtm-push data={ gamDeferOn: "load" ASN: req.get('x-asn') || '' } />
+    <marko-web-gtm-push data={ gamDeferOn: "load", ASN: req.get('x-asn') || '' } />
     <marko-web-gam-init
       request-frame=true
       target-tag="body"
