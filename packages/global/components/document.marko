@@ -52,7 +52,7 @@ $ const { gamDefer, gtmDefer } = req.query;
 
     <!-- init gam -->
     <!-- Push gamDeferOn prop to use in GTM in order to trigger googletags correctly -->
-    <marko-web-gtm-push data={ gamDeferOn: "load"} />
+    <marko-web-gtm-push data={ gamDeferOn: "load", ASN: req.get('x-asn') || '' } />
     <marko-web-gam-init
       request-frame=true
       target-tag="body"
@@ -131,6 +131,5 @@ $ const { gamDefer, gtmDefer } = req.query;
   <@below-container>
     <${input.belowContainer} />
     <theme-site-footer use-idx-newsletter-signup=false />
-    <marko-web-gtm-push data={ ASN: req.get('x-asn') || '' } />
   </@below-container>
 </marko-web-document>
