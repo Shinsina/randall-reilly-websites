@@ -14,6 +14,7 @@ module.exports = ({
     'regionCode',
   ],
   defaultCountryCode = 'US',
+  booleanQuestionsLabel = 'Choose your subscriptions:',
   requiredServerFields = ['organization', 'countryCode'],
   requiredClientFields = ['organization', 'countryCode', 'postalCode'],
   ...rest
@@ -23,6 +24,7 @@ module.exports = ({
     apiToken: process.env.IDENTITYX_API_TOKEN,
     defaultCountryCode,
     hiddenFields,
+    booleanQuestionsLabel,
     requiredServerFields,
     requiredClientFields,
     onHookError: newrelic.noticeError.bind(newrelic),
