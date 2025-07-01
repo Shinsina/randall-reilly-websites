@@ -801,10 +801,10 @@
     "@mindful-web/object-path" "^1.11.9"
     "@mindful-web/utils" "^1.11.9"
 
-"@mindful-web/marko-web-search@^1.20.2":
-  version "1.20.2"
-  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-search/-/marko-web-search-1.20.2.tgz#a25e8023b287dba8bd06c4df7eaa4365ffa6ea39"
-  integrity sha512-z/RXIGNcbtwBiy3uyPQ2BnIR3crSkncazKndg/x2FNHGF84kYhUDAxwGQ0niC779HGbxAgsiXF7UPNbwmgRvXw==
+"@mindful-web/marko-web-search@^1.27.1":
+  version "1.27.1"
+  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-search/-/marko-web-search-1.27.1.tgz#45aa1ecc7dca8f0353dc30fd6990b7659c72f615"
+  integrity sha512-6Dp79I/IFDllf5CJ08SVPg0a7w9U29qVnz5H1xeysLu43swcRvLc6LHth17gEnJAs+vuCIKf3eRU9Y7XL0IBLg==
   dependencies:
     "@mindful-web/inflector" "^1.0.0"
     "@mindful-web/marko-web-icons" "^1.0.0"
@@ -822,10 +822,10 @@
   dependencies:
     "@mindful-web/utils" "^1.11.9"
 
-"@mindful-web/marko-web-theme-monorail@^1.26.1":
-  version "1.26.1"
-  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-theme-monorail/-/marko-web-theme-monorail-1.26.1.tgz#ea1b6fac28e802812b2dc9f25d6d44a9f0916961"
-  integrity sha512-JlJpFDFWO9iPFJua5YtDMDq0cSYZ06EdezvdsmUVGqL8IXMzNsbx9HObZnYzD9pTBYjGLJ+ttjD4UEQtMFZZUQ==
+"@mindful-web/marko-web-theme-monorail@^1.27.1":
+  version "1.27.1"
+  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-theme-monorail/-/marko-web-theme-monorail-1.27.1.tgz#8f54c484d596a630a74955234acc1e038407c91b"
+  integrity sha512-1QTJC5YUl/IJwzznG3zr4TH/YMGwfNbSZMPIbs/AG2H9C2SLOiwh5KuturfstcS1XI/HYWDv684SXDhV+RhvGg==
   dependencies:
     "@mindful-web/dayjs" "^1.16.0"
     "@mindful-web/image" "^1.18.1"
@@ -843,8 +843,9 @@
     "@mindful-web/marko-web-p1-events" "^1.23.0"
     "@mindful-web/marko-web-recaptcha" "^1.26.1"
     "@mindful-web/marko-web-reveal-ad" "^1.11.9"
-    "@mindful-web/marko-web-search" "^1.20.2"
+    "@mindful-web/marko-web-search" "^1.27.1"
     "@mindful-web/marko-web-social-sharing" "^1.20.0"
+    "@mindful-web/mindful" "^1.27.1"
     "@mindful-web/object-path" "^1.11.9"
     "@mindful-web/utils" "^1.11.9"
     "@mindful-web/web-common" "^1.20.2"
@@ -897,14 +898,15 @@
     vue "^2.7.14"
     vue-server-renderer "^2.7.14"
 
-"@mindful-web/mindful@^1.11.9":
-  version "1.11.9"
-  resolved "https://registry.yarnpkg.com/@mindful-web/mindful/-/mindful-1.11.9.tgz#6071bfa4c8960809858b6af998833a780d950032"
-  integrity sha512-yGbtNXLbUGfAphVlWI5xMJRTbVwR5j5OHRbHgdwbLp34K+fx8ksyA+SzWedo5WtOOcstOncz9o+eebh/ST0Qmw==
+"@mindful-web/mindful@^1.27.1":
+  version "1.27.1"
+  resolved "https://registry.yarnpkg.com/@mindful-web/mindful/-/mindful-1.27.1.tgz#4cbc5066ce15ff22ac51c05fb2236ae6b0d77f0b"
+  integrity sha512-3NVUOG9xn9AFywjzJb4FhkrYaH+cDXbiwOit++rGF/6C+WtcwuIKdlTenWT44v4BUSsDYcjl2Rc9WjKcpl7/Ng==
   dependencies:
     "@mindful-web/env" "^1.0.0"
     "@mindful-web/object-path" "^1.11.9"
     "@mindful-web/utils" "^1.11.9"
+    "@mindful-web/web-common" "^1.20.2"
     "@parameter1/joi" "^1.2.10"
     debug "^4.1.1"
     express "^4.17.1"
