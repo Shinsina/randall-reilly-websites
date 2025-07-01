@@ -121,9 +121,11 @@ $ const bypassGate = hasOmedaId(req);
           $ const lazyloadFirstImage = displayPrimaryImage && content.primaryImage;
           <if(idxFormId)>
             <if(displayIdxForm)>
-              $ const body = getContentPreview({ body: content.body, selector: "p:lt(3)" });
+              $ const body = type === 'document' ? content.body : getContentPreview({ body: content.body, selector: "p:lt(3)" });
               <marko-web-content-body block-name=blockName obj={ body } />
-              <div class="content-page-preview-overlay" />
+              <if(type !== "document")>
+                <div class="content-page-preview-overlay" />
+              </if>
               <marko-web-content-body block-name=blockName attrs={ style: "display: none;" } obj=content modifiers=["ld-json"] />
                 <marko-web-identity-x-context|{ hasUser, user, application }|>
                 <if(hasUser)>
@@ -148,14 +150,173 @@ $ const bypassGate = hasOmedaId(req);
               </marko-web-identity-x-context>
             </if>
             <else>
-              $ const bodyId = `content-body-${content.id}`;
-              <theme-body-with-injection
+
+              <!-- remove the Desktop Leaderboard overrides stuff and set the mobile version correctly.
+
+              $ const desktopLeaderboardAdName = (GAM.btfLeaderboard) ? "leaderboard-desktop" : "inline-content-desktop'";
+              $ const desktopLeaderboardModifiers = (GAM.btfLeaderboard) ? ["margin-auto-x",  "inline-content", "inline-leaderboard-desktop"] : ["margin-auto-x",  "inline-content", "inline-desktop"];
+
+              Add the following back to <theme-body-with-injection call to add desktop leaderboard logic.
+              desktop-leaderboard-ad-name=desktopLeaderboardAdName
+              desktop-leaderboard-modifiers=desktopLeaderboardModifiers
+
+              -->
+              $ const mobileLeaderboardAdName = (GAM.btfLeaderboard) ? "inline-leaderboard-mobile" : "inline-content-mobile";
+              $ const mobileLeaderboardModifiers = (GAM.btfLeaderboard) ? ["margin-auto-x",  "inline-content", "inline-leaderboard-mobile"] : ["margin-auto-x",  "inline-content", "inline-mobile"];
+
+              $ const uri = nxConfig.getUri();
+              $ const placement = nxConfig.getPlacement({ name: "partner-insights", aliases });
+              <marko-web-native-x-fetch-elements|{ ads }| uri=uri id=placement.id opts={ n: 4 }>
+                $ const hasAd = ads && ads.length && ads[0] && ads[0].hasCampaign;
+                $ let htmlInjections = [];
+                $ const showInbodyLAPromo = site.get("showInbodyLAPromo") || false;
+                $ const showInbodyTHRPromo = site.get("showInbodyTHRPromo") || false;
+                $ const desktopAdCounts = showInbodyTHRPromo ? [2750, 4500, 6250, 8000, 9750, 11500, 13250, 15000, 16750, 18500] : [1500, 2750, 4500, 6250, 8000, 9750, 11500, 13250, 15000, 16750, 18500];
+                $ const mobileAdCounts = showInbodyTHRPromo ? [1650, 2950, 4250, 5550, 6850, 8150, 9450, 10750, 12050, 13350, 14650, 15950, 17250] : [900, 1650, 2950, 4250, 5550, 6850, 8150, 9450, 10750, 12050, 13350, 14650, 15950, 17250];
+
+                $ if (showInbodyTHRPromo) {
+                  htmlInjections.push(
+                    {
+                      at: 1200,
+                      html: widget.renderToString({
+                        title: "Truck History Report",
+                        callToAction: "Look up the full history of any truck, including: reported accidents, inspection violations, insurance claim, owner history and more.",
+                        placeholder: "Search by VIN…",
+                        checkIdentityX: false,
+                        withTag: true,
+                        withDesktopImg: true,
+                        withMobileImg: true,
+                        source: 'widget',
+                        learnMoreText: "Learn more about truck history reports",
+                        ssr: false,
+                        $global,
+                      })
+                    }
+                  );
+                };
+
+                $ if (showInbodyLAPromo) {
+                  htmlInjections.push(
+                    {
+                      at: 1200,
+                      html: LoadAnaylzerInboyPromo.renderToString()
+                    }
+                  );
+                }
+
+                $ const viewMore = Boolean((get(config, "websiteContext.id") === "5fce5519d28860bc33b80a42") && hasAd);
+                <if(hasAd)>
+                  $ const nodes = ads.filter((ad) => ad.hasCampaign);
+                  $ htmlInjections.push(
+                    {
+                      at: 2000,
+                      html: NativeXCardDeck.renderToString({
+                        cols: 4,
+                        nodes: nodes,
+                        section: { name: "Partner Insights", description: "Information to advance your business from industry suppliers", canonicalPath: "/partner-insights" },
+                        viewMore: viewMore,
+                      })
+                    }
+                  );
+                </if>
+                <if(initiallyInjected)>
+                  $ htmlInjections.push(renderSiteNewsletterMenu({ out }).then((html) => ({ at: 250, html })));
+                  <theme-body-with-injection
+                    content=content
+                    aliases=aliases
+                    block-name=blockName
+                    preventHTMLInjection=!shouldInjectAds
+                    html-injections=htmlInjections
+                    mobile-leaderboard-ad-name="inline-content-mobile"
+                    mobile-leaderboard-ad-counts=[]
+                    mobile-leaderboard-modifiers=["margin-auto-x",  "inline-content", "inline-mobile"]
+                    lazyload-first-image=lazyloadFirstImage
+                    mobile-ad-counts=mobileAdCounts
+                    desktop-ad-counts=desktopAdCounts
+                  />
+                </if>
+                <else>
+                  <theme-body-with-injection
+                    content=content
+                    aliases=aliases
+                    block-name=blockName
+                    preventHTMLInjection=!shouldInjectAds
+                    html-injections=htmlInjections
+                    mobile-leaderboard-ad-name=mobileLeaderboardAdName
+                    mobile-leaderboard-modifiers=mobileLeaderboardModifiers
+                    lazyload-first-image=lazyloadFirstImage
+                    mobile-ad-counts=mobileAdCounts
+                    desktop-ad-counts=desktopAdCounts
+                  />
+                </else>
+              </marko-web-native-x-fetch-elements>
+
+              <if(content.transcript)>
+                <div id=`transcript-${id}` class="page-contents__content-transcript">
+                  <marko-web-element block-name="page-contents" name="content-transcript-title">
+                    <marko-web-icon name="file" modifiers=["lg"] /> Transcript
+                  </marko-web-element>
+                  <theme-body-with-injection
+                    content={ body: content.transcript }
+                    aliases=aliases
+                    block-name=blockName
+                    preventHTMLInjection=!shouldInjectAds
+                  />
+                </div>
+              </if>
+
+              <!-- needs input -->
+              <if(input.afterBody)>
+                <${input.afterBody}
+                  aliases=aliases
+                  block-name=blockName
+                  content=content
+                />
+              </if>
+
+              $ const sidebars = getAsArray(content, "sidebars").map((sidebar) => sidebar.body);
+              <marko-web-content-sidebars block-name=blockName obj={ sidebars } />
+
+              <if(type === "document" || type === "whitepaper")>
+                <theme-content-download obj=content>
+                  <@wufoo user-name=site.get("wufoo.userName") />
+                  <@link class="btn btn-primary" />
+                </theme-content-download>
+              </if>
+
+              <if(type !== "contact")>
+                <for|author| of=authors>
+                  <if(getAsArray(author, "labels").includes("Contributor"))>
+                    <marko-web-content-body obj=author block-name="inline-author-bio" />
+                  </if>
+                </for>
+              </if>
+
+              <if(displaySocialShare)>
+                <div class="social-sharing--wrapper">
+                  <marko-web-social-sharing
+                    path=content.siteContext.path
+                    providers=["print", "facebook", "linkedin", "twitter", "pinterest"]
+                    print-path=`/print/content/${content.id}`
+                  />
+                </div>
+              </if>
+
+              $ const name = (aliases && aliases.length && aliases[0] === 'preventable-or-not') ? aliases[0] : 'default';
+              <global-content-by-idx-role-block
+                title="Next Read"
                 content=content
-                aliases=[]
-                block-name=blockName
-                selector=bodyId
-                preventHTMLInjection=true
+                with-native-x=true
+                native-x={ name: "partner-insights", sectionName: "Partner Insights", name }
               />
+
+              <if(displayReadNext)>
+                <theme-read-next-block
+                  content-id=id
+                  section-id=primarySection.id
+                  published=content.published
+                />
+              </if>
             </else>
           </if>
           <else-if(shouldTruncate(contentMeterState))>
