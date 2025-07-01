@@ -38,14 +38,15 @@ $ const displayComments = ["contact"].includes(type) ? false : true;
 $ const displayNewsletterSignup = ["contact"].includes(type) || showOverlay ? false : true;
 $ const shouldInjectAds = ["article", "video", "news", "podcast"].includes(type);
 $ const bypassGate = hasOmedaId(req);
+
 <global-content-wrapper-layout
   id=id
   type=type
   page-node=pageNode
   ...rest
 >
-  <@section|{ aliases }| modifiers=["first-sm"]>
-    <if(!showOverlay)>
+  <@section|{ aliases, content }| modifiers=["first-sm"]>
+    <if(!showOverlay && (!content.labels || !content.labels.includes('Sponsored')))>
       $ const adName = (GAM.btfLeaderboard && !initiallyInjected) ? "leaderboard-desktop" : "leaderboard";
       <theme-gam-define-display-ad
         name=adName
@@ -119,6 +120,7 @@ $ const bypassGate = hasOmedaId(req);
         >
 
           $ const lazyloadFirstImage = displayPrimaryImage && content.primaryImage;
+          $ console.log('idxFormID: ', idxFormId, displayIdxForm)
           <if(idxFormId)>
             <if(displayIdxForm)>
               $ const body = type === 'document' ? content.body : getContentPreview({ body: content.body, selector: "p:lt(3)" });
@@ -129,23 +131,39 @@ $ const bypassGate = hasOmedaId(req);
               <marko-web-content-body block-name=blockName attrs={ style: "display: none;" } obj=content modifiers=["ld-json"] />
                 <marko-web-identity-x-context|{ hasUser, user, application }|>
                 <if(hasUser)>
-                  <marko-web-identity-x-form-access
-                    content=content
-                    user=user
-                    formId=idxFormId
-                    application=application
-                  />
-                </if>
-                <else>
-                  <marko-web-identity-x-non-auth-identify|{ user: identifiedUser }|>
+                  <if(type === "document" || type === "whitepaper")>
+                    <theme-content-download obj=content>
+                      <@wufoo user-name=site.get("wufoo.userName") />
+                      <@link class="btn btn-primary" />
+                    </theme-content-download>
+                  </if>
+                  <else>
                     <marko-web-identity-x-form-access
-                      updateProfileOnSubmit=false
                       content=content
-                      user=identifiedUser
+                      user=user
                       formId=idxFormId
                       application=application
                     />
-                  </marko-web-identity-x-non-auth-identify>
+                  </else>
+                </if>
+                <else>
+                  <if(type === "document" || type === "whitepaper")>
+                    <theme-content-download obj=content>
+                      <@wufoo user-name=site.get("wufoo.userName") />
+                      <@link class="btn btn-primary" />
+                    </theme-content-download>
+                  </if>
+                  <else>
+                    <marko-web-identity-x-non-auth-identify|{ user: identifiedUser }|>
+                      <marko-web-identity-x-form-access
+                        updateProfileOnSubmit=false
+                        content=content
+                        user=identifiedUser
+                        formId=idxFormId
+                        application=application
+                      />
+                    </marko-web-identity-x-non-auth-identify>
+                  </else>
                 </else>
               </marko-web-identity-x-context>
             </if>
@@ -277,13 +295,6 @@ $ const bypassGate = hasOmedaId(req);
               $ const sidebars = getAsArray(content, "sidebars").map((sidebar) => sidebar.body);
               <marko-web-content-sidebars block-name=blockName obj={ sidebars } />
 
-              <if(type === "document" || type === "whitepaper")>
-                <theme-content-download obj=content>
-                  <@wufoo user-name=site.get("wufoo.userName") />
-                  <@link class="btn btn-primary" />
-                </theme-content-download>
-              </if>
-
               <if(type !== "contact")>
                 <for|author| of=authors>
                   <if(getAsArray(author, "labels").includes("Contributor"))>
@@ -301,16 +312,17 @@ $ const bypassGate = hasOmedaId(req);
                   />
                 </div>
               </if>
+              <if(!(content.labels && content.labels.includes('Sponsored')))>
+                $ const name = (aliases && aliases.length && aliases[0] === 'preventable-or-not') ? aliases[0] : 'default';
+                <global-content-by-idx-role-block
+                  title="Next Read"
+                  content=content
+                  with-native-x=true
+                  native-x={ name: "partner-insights", sectionName: "Partner Insights", name }
+                />
+              </if>
 
-              $ const name = (aliases && aliases.length && aliases[0] === 'preventable-or-not') ? aliases[0] : 'default';
-              <global-content-by-idx-role-block
-                title="Next Read"
-                content=content
-                with-native-x=true
-                native-x={ name: "partner-insights", sectionName: "Partner Insights", name }
-              />
-
-              <if(displayReadNext)>
+              <if(displayReadNext && !(content.labels && content.labels.includes('Sponsored')))>
                 <theme-read-next-block
                   content-id=id
                   section-id=primarySection.id
@@ -525,11 +537,11 @@ $ const bypassGate = hasOmedaId(req);
           </else>
         </marko-web-identity-x-access>
 
-        <if(displayComments)>
+        <if(displayComments && !(content.labels && content.labels.includes('Sponsored')))>
           <theme-identity-x-comment-stream content=content />
         </if>
 
-        <if(displayNewsletterSignup)>
+        <if(displayNewsletterSignup && !(content.labels && content.labels.includes('Sponsored')))>
           <marko-web-identity-x-context|{ hasUser }|>
             $ const selector = ["a", "b"].sort((a, b) => 0.5 - Math.random())
             <if(hasUser || (!hasUser && selector[0] === "a"))>
@@ -554,20 +566,24 @@ $ const bypassGate = hasOmedaId(req);
     />
   </@section> -->
 
-  <if(showBottomAdBlock && !showOverlay)>
-    <@section|{ aliases }|>
-      <theme-gam-define-display-ad
-        name="rotation"
-        position="content_page"
-        aliases=aliases
-        modifiers=["inter-block"]
-      />
+  <if(showBottomAdBlock)>
+    <@section|{ aliases, content }|>
+      <if(!showOverlay && !(content.labels && content.labels.includes('Sponsored')))>
+        <theme-gam-define-display-ad
+          name="rotation"
+          position="content_page"
+          aliases=aliases
+          modifiers=["inter-block"]
+        />
+      </if>
     </@section>
   </if>
 
   <if(showTopStoryBlock)>
-    <@section>
-      <theme-top-stories-block query-params={ optionName: "Pinned" } />
+    <@section|{ content }|>
+      <if(!(content.labels && content.labels.includes('Sponsored')))>
+        <theme-top-stories-block query-params={ optionName: "Pinned" } />
+      </if>
     </@section>
   </if>
 

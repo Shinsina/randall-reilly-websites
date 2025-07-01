@@ -6,27 +6,33 @@ $ const { id, type, pageNode, ...rest } = input;
   page-node=pageNode
   ...rest
 >
-  <@section>
-    <theme-callout-cards-block>
-      <@slot>
-        <theme-latest-podcast-block alias="overdrive-radio" />
-      </@slot>
-      <@slot>
-        <site-promo-card-rotation-block />
-      </@slot>
-    </theme-callout-cards-block>
+  <@section|{ content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <theme-callout-cards-block>
+        <@slot>
+          <theme-latest-podcast-block alias="overdrive-radio" />
+        </@slot>
+        <@slot>
+          <site-promo-card-rotation-block />
+        </@slot>
+      </theme-callout-cards-block>
+    </if>
   </@section>
 
-  <@section|{ aliases }|>
-    <theme-gam-define-display-ad
-      name="rotation"
-      position="content_page"
-      aliases=aliases
-      modifiers=["inter-block"]
-    />
+  <@section|{ aliases, content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <theme-gam-define-display-ad
+        name="rotation"
+        position="content_page"
+        aliases=aliases
+        modifiers=["inter-block"]
+      />
+    </if>
   </@section>
 
-  <@section>
-    <theme-client-side-most-popular-block />
+  <@section|{ content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <theme-client-side-most-popular-block />
+    </if>
   </@section>
 </global-content-default-layout>

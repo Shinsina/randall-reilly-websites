@@ -6,29 +6,35 @@ $ const { id, type, pageNode, ...rest } = input;
   page-node=pageNode
   ...rest
 >
-  <@section>
-    <theme-callout-cards-block>
-      <@slot>
-        <global-ccj-top-250-block />
-      </@slot>
-      <@slot>
-        <theme-white-papers-block shuffle=true limit=20 />
-      </@slot>
-    </theme-callout-cards-block>
+  <@section|{ content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <theme-callout-cards-block>
+        <@slot>
+          <global-ccj-top-250-block />
+        </@slot>
+        <@slot>
+          <theme-white-papers-block shuffle=true limit=20 />
+        </@slot>
+      </theme-callout-cards-block>
+    </if>
   </@section>
 
-  <@section|{ aliases }|>
-    <theme-gam-define-display-ad
-      name="rotation"
-      position="content_page"
-      aliases=aliases
-      modifiers=["inter-block"]
-    />
+  <@section|{ aliases, content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <theme-gam-define-display-ad
+        name="rotation"
+        position="content_page"
+        aliases=aliases
+        modifiers=["inter-block"]
+      />
+    </if>
   </@section>
 
-  <@section>
-    <div role="region" aria-label="Most Popular Stories">
-      <theme-client-side-most-popular-block />
-    </div>
+  <@section|{ content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <div role="region" aria-label="Most Popular Stories">
+        <theme-client-side-most-popular-block />
+      </div>
+    </if>
   </@section>
 </global-content-default-layout>
