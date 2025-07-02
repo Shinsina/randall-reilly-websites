@@ -623,6 +623,15 @@ label {
 /*! critical:end */
 
 /*! critical:start|content.whitepaper */
+.page {
+  &--content-document {
+    .content-download {
+      form .btn-primary {
+        margin-top: map-get($spacers, block)
+      }
+    }
+  }
+}
 // whitepaper landing pages utilize the imported on larg and small screen res
 // should be relativly the same size on desktop and mobile
 @include media-breakpoint-up(lg) {
