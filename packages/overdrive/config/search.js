@@ -6,4 +6,6 @@ module.exports = {
     71375,
   ],
   defaultSortField: 'SCORE',
+  type: 'MATCH_PHRASE',
+  useMindful: true,
 };
