@@ -18,7 +18,14 @@ module.exports = {
         key: 'organization',
         type: 'built-in',
         required: true,
-        width: 1,
+        width: 0.5,
+      },
+      {
+        label: 'Phone Number',
+        key: 'phoneNumber',
+        type: 'built-in',
+        required: false,
+        width: 0.5,
       },
     ],
     // Row 3
