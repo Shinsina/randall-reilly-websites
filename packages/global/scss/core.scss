@@ -617,4 +617,18 @@ label {
     margin-top: 0;
   }
 }
+.download-related__title h3{
+  @include skin-typography($style: "header-3", $link-style: "primary");
+}
+/*! critical:end */
+
+/*! critical:start|content.whitepaper */
+// whitepaper landing pages utilize the imported on larg and small screen res
+// should be relativly the same size on desktop and mobile
+@include media-breakpoint-up(lg) {
+  @import "./components/sm-related-downloads";
+}
+@include media-breakpoint-down(md) {
+  @import "./components/sm-related-downloads";
+}
 /*! critical:end */
