@@ -132,7 +132,7 @@ $ const bypassGate = hasOmedaId(req);
                 <marko-web-identity-x-context|{ hasUser, user, application }|>
                 <if(hasUser)>
                   <if(type === "document" || type === "whitepaper")>
-                    <theme-content-download obj=content>
+                    <theme-content-download obj=content show-related=false>
                       <@wufoo user-name=site.get("wufoo.userName") />
                       <@link class="btn btn-primary" />
                     </theme-content-download>
