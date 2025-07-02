@@ -68,4 +68,11 @@ module.exports = {
     name: 'Newsletter Just for Landscapers',
     description: 'Get landscaping news and insights, plus how-to guides and equipment reviews — delivered straight to your inbox.',
   },
+  modal: {
+    ...baseConfig,
+    enabled: false,
+    cookieValueToMatch: 1,
+    name: 'Don’t Miss Out!!!',
+    description: 'Get owner-operator news and insights, plus diesel prices and gear reviews — delivered straight to your inbox.',
+  },
 };

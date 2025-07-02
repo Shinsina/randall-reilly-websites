@@ -126,6 +126,10 @@
 @import "@mindful-web/marko-web-theme-monorail/scss/components/site-footer";
 /*! critical:end */
 
+/*! purgecss start ignore */
+@import "@mindful-web/marko-web-theme-monorail/scss/components/newsletter-signup-modal";
+/*! purgecss end ignore */
+
 /*! critical:start */
 @import "@mindful-web/marko-web-theme-monorail/scss/components/site-header";
 @import "@mindful-web/marko-web-theme-monorail/scss/components/site-menu";
@@ -287,6 +291,12 @@ label {
 
 .btn-light {
   @include skin-button($style: "light");
+}
+
+.content-survey-access-idx__wrapper {
+  .btn {
+    margin-top: map-get($spacers, block)
+  }
 }
 
 .document-container {
@@ -606,5 +616,28 @@ label {
   .idx-comment-stream-wrapper {
     margin-top: 0;
   }
+}
+.download-related__title h3{
+  @include skin-typography($style: "header-3", $link-style: "primary");
+}
+/*! critical:end */
+
+/*! critical:start|content.whitepaper */
+.page {
+  &--content-document {
+    .content-download {
+      form .btn-primary {
+        margin-top: map-get($spacers, block)
+      }
+    }
+  }
+}
+// whitepaper landing pages utilize the imported on larg and small screen res
+// should be relativly the same size on desktop and mobile
+@include media-breakpoint-up(lg) {
+  @import "./components/sm-related-downloads";
+}
+@include media-breakpoint-down(md) {
+  @import "./components/sm-related-downloads";
 }
 /*! critical:end */

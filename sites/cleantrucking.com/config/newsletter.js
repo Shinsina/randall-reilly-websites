@@ -69,4 +69,11 @@ module.exports = {
     name: 'Clean trucking is here to stay. Is your business ready?',
     description: 'Breaking news on zero-emission vehicles, infrastructure and regulations, alternative fuel tech and more, delivered straight to your inbox.',
   },
+  modal: {
+    ...baseConfig,
+    enabled: false,
+    cookieValueToMatch: 1,
+    name: 'Don’t Miss Out!!!',
+    description: 'Get owner-operator news and insights, plus diesel prices and gear reviews — delivered straight to your inbox.',
+  },
 };

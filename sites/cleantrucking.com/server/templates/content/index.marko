@@ -7,29 +7,35 @@ $ const { id, type, pageNode, ...rest } = input;
   ...rest
 >
 
-  <@section|{ aliases }|>
-    <theme-gam-define-display-ad
-      name="rotation"
-      position="content_page"
-      aliases=aliases
-      modifiers=["inter-block"]
-    />
+  <@section|{ aliases, content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <theme-gam-define-display-ad
+        name="rotation"
+        position="content_page"
+        aliases=aliases
+        modifiers=["inter-block"]
+      />
+    </if>
   </@section>
 
-  <@section>
-    <div role="region" aria-label="Most Popular Stories">
-      <theme-client-side-most-popular-block />
-    </div>
+  <@section|{ content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <div role="region" aria-label="Most Popular Stories">
+        <theme-client-side-most-popular-block />
+      </div>
+    </if>
   </@section>
 
-  <@section>
-    <theme-callout-cards-block>
-      <@slot>
-        <global-bev-survey-image-only-promo-block />
-      </@slot>
-      <@slot>
-        <site-promo-card-rotation-block />
-      </@slot>
-    </theme-callout-cards-block>
+  <@section|{ content }|>
+    <if(!(content.labels && content.labels.includes('Sponsored')))>
+      <theme-callout-cards-block>
+        <@slot>
+          <global-bev-survey-image-only-promo-block />
+        </@slot>
+        <@slot>
+          <site-promo-card-rotation-block />
+        </@slot>
+      </theme-callout-cards-block>
+    </if>
   </@section>
 </global-content-default-layout>

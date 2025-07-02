@@ -32,12 +32,14 @@ $ const alias = get(input, "primarySection.alias");
         </for>
 
         <@section>
-          <theme-gam-define-display-ad
-            name="rotation"
-            position="content_page"
-            aliases=aliases
-            modifiers=["inter-block"]
-          />
+          <if(!content.labels || !content.labels.includes('Sponsored'))>
+            <theme-gam-define-display-ad
+              name="rotation"
+              position="content_page"
+              aliases=aliases
+              modifiers=["inter-block"]
+            />
+          </if>
         </@section>
       </marko-web-page-wrapper>
     </marko-web-resolve-page>

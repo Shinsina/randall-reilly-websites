@@ -1,0 +1,46 @@
+.page {
+  &--content-whitepaper {
+    .content-page-gate,
+    .content-download {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    .page-contents {
+      &--download-form {
+        padding-left: map-get($spacers, block);
+        padding-right: map-get($spacers, block);
+        // .success-message__title {
+        //   flex-direction: column;
+        //   align-content: center;
+        // }
+        .btn-primary {
+          max-width: 200px;
+          align-self: center;
+          &.mr-3 {
+            margin-left: map-get($spacers, block);
+            margin-right: 0;
+          }
+        }
+        form .btn-primary {
+          max-width: 100%;
+          margin-top: map-get($spacers, block);
+        }
+        .download-related {
+          &__item {
+            display: flex;
+            flex-direction: column;
+          }
+          &__button {
+            padding: 0;
+            .btn-primary {
+              align-self: flex-start;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.content-download:not(.content-download__link) {
+  padding-bottom: 0;
+}
