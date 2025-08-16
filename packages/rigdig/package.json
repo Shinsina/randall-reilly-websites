@@ -14,10 +14,10 @@
     "test": "yarn lint && yarn compile --no-clean"
   },
   "dependencies": {
-    "@mindful-web/marko-core": "^1.20.2",
-    "@mindful-web/marko-web": "^1.24.1",
-    "@mindful-web/marko-web-icons": "^1.0.0",
-    "@mindful-web/marko-web-identity-x": "^1.20.3",
+    "@mindful-web/marko-core": "^1.28.0",
+    "@mindful-web/marko-web": "^1.28.0",
+    "@mindful-web/marko-web-icons": "^1.27.2",
+    "@mindful-web/marko-web-identity-x": "^1.32.1",
     "@mindful-web/object-path": "^1.11.9",
     "@mindful-web/utils": "^1.11.9",
     "@randall-reilly/package-payfabric": "^2.4.0",
