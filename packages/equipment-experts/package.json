@@ -14,9 +14,9 @@
     "test": "yarn lint && yarn compile --no-clean"
   },
   "dependencies": {
-    "@mindful-web/embedded-media": "^1.18.1",
-    "@mindful-web/image": "^1.18.1",
-    "@mindful-web/marko-web": "^1.24.1",
+    "@mindful-web/embedded-media": "^1.27.4",
+    "@mindful-web/image": "^1.27.4",
+    "@mindful-web/marko-web": "^1.28.0",
     "@mindful-web/object-path": "^1.11.9",
     "@mindful-web/utils": "^1.11.9",
     "apollo-cache-inmemory": "^1.6.6",
