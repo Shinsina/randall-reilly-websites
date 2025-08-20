@@ -776,10 +776,10 @@
     node-fetch "^2.6.9"
     tldjs "^2.3.1"
 
-"@mindful-web/marko-web-p1-events@^1.23.0":
-  version "1.23.0"
-  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-p1-events/-/marko-web-p1-events-1.23.0.tgz#9db51ae77350097aac3aa52faa5acfd5104ef01d"
-  integrity sha512-hylpFP3PSaSnBPbKdPOdc1MeZ7oXz0ehv/oiqnaWVZigPnnPvMqy0UXanoPLtNs0CegtaWOE9TRu5R0CaveRmg==
+"@mindful-web/marko-web-p1-events@^1.33.2":
+  version "1.33.2"
+  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-p1-events/-/marko-web-p1-events-1.33.2.tgz#e10788f59ed83fa348129a4ab0a278d7bbab3b75"
+  integrity sha512-meNX9Ktmiz33oKJm/iPW/JvI5qRTGLPw4AFMrpJE1ZA4sYjILcY0WirKvRs3efupESmjwsaJ1ptzRm7KNz6nbA==
   dependencies:
     "@mindful-web/inflector" "^1.0.0"
     "@mindful-web/marko-web-deferred-script-loader" "^1.11.9"
@@ -822,10 +822,10 @@
   dependencies:
     "@mindful-web/utils" "^1.11.9"
 
-"@mindful-web/marko-web-theme-monorail@^1.33.1":
-  version "1.33.1"
-  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-theme-monorail/-/marko-web-theme-monorail-1.33.1.tgz#9dec49cee8904eb8a1ba0cc18efa8d0d3985e1cf"
-  integrity sha512-BZfBjhkrX4/VDPmAw5FEk5y6FWmUXTm2HudGk5TpPP7w7GlrRF5wkKG7gNTEgrHBSqi9Lcy9yT30r4BAOrdqdg==
+"@mindful-web/marko-web-theme-monorail@^1.33.2":
+  version "1.33.2"
+  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-theme-monorail/-/marko-web-theme-monorail-1.33.2.tgz#33c56a5a06ef16bfe647fa43e02f4046e3b03252"
+  integrity sha512-UXVvYF0mGR+bWcupxYvBT9Uu1uT4JO8VcihwoYUat8ZNezQqHaNmQdIbq0OoLHaxJ7MLGdyV/WVOxkqLKaSh9g==
   dependencies:
     "@mindful-web/dayjs" "^1.16.0"
     "@mindful-web/image" "^1.27.4"
@@ -840,7 +840,7 @@
     "@mindful-web/marko-web-native-x" "^1.28.0"
     "@mindful-web/marko-web-omeda" "^1.26.1"
     "@mindful-web/marko-web-omeda-identity-x" "^1.32.1"
-    "@mindful-web/marko-web-p1-events" "^1.23.0"
+    "@mindful-web/marko-web-p1-events" "^1.33.2"
     "@mindful-web/marko-web-recaptcha" "^1.26.1"
     "@mindful-web/marko-web-reveal-ad" "^1.11.9"
     "@mindful-web/marko-web-search" "^1.33.1"
