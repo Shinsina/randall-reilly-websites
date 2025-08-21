@@ -1,10 +1,10 @@
 import hierarchyAliases from "@mindful-web/marko-web/utils/hierarchy-aliases";
-import { getAsArray, get } from "@mindful-web/object-path";
+import { getAsArray } from "@mindful-web/object-path";
+import { defaultValue } from "@mindful-web/marko-web/utils";
 
 $ const { id, type, pageNode } = input;
-$ const { GAM } = out.global;
 $ const sections = getAsArray(input, "sections");
-$ const alias = get(input, "primarySection.alias");
+$ const withAds = defaultValue(input.withAds, true);
 
 <theme-content-page id=id type=type>
   <@head>
@@ -32,7 +32,7 @@ $ const alias = get(input, "primarySection.alias");
         </for>
 
         <@section>
-          <if(!content.labels || !content.labels.includes('Sponsored'))>
+          <if(withAds && (!content.labels || !content.labels.includes('Sponsored')))>
             <theme-gam-define-display-ad
               name="rotation"
               position="content_page"
