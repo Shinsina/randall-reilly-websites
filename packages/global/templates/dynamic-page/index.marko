@@ -16,16 +16,8 @@ $ const bypassGate = hasOmedaId(req);
   id=id
   type=type
   page-node=pageNode
+  with-ads=false
 >
-
-  <@section|{ aliases }| modifiers=["first"]>
-    <theme-gam-define-display-ad
-      name="leaderboard"
-      position="content_page"
-      aliases=aliases
-      modifiers=["inter-block"]
-    />
-  </@section>
 
   <@section|{ blockName, content }|>
     $ const { primarySection } = content;
