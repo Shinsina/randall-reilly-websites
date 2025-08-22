@@ -822,10 +822,10 @@
   dependencies:
     "@mindful-web/utils" "^1.11.9"
 
-"@mindful-web/marko-web-theme-monorail@^1.33.2":
-  version "1.33.2"
-  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-theme-monorail/-/marko-web-theme-monorail-1.33.2.tgz#33c56a5a06ef16bfe647fa43e02f4046e3b03252"
-  integrity sha512-UXVvYF0mGR+bWcupxYvBT9Uu1uT4JO8VcihwoYUat8ZNezQqHaNmQdIbq0OoLHaxJ7MLGdyV/WVOxkqLKaSh9g==
+"@mindful-web/marko-web-theme-monorail@^1.35.0":
+  version "1.35.0"
+  resolved "https://registry.yarnpkg.com/@mindful-web/marko-web-theme-monorail/-/marko-web-theme-monorail-1.35.0.tgz#f025ee6cabae9f905340fbaf53f8ecfab3e7ac5e"
+  integrity sha512-Wua2Fizcx+qFXiYE1ECN6iMMyRn9+bfOkGoCqhXeEuHTjFlkLn74Uy4ytdQr45Dl2g9k5coM197dhDxe2ewkfQ==
   dependencies:
     "@mindful-web/dayjs" "^1.16.0"
     "@mindful-web/image" "^1.27.4"
