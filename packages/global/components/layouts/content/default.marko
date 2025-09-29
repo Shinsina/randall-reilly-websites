@@ -38,6 +38,8 @@ $ const displayComments = ["contact"].includes(type) ? false : true;
 $ const displayNewsletterSignup = ["contact"].includes(type) || showOverlay ? false : true;
 $ const shouldInjectAds = ["article", "video", "news", "podcast", "media-gallery"].includes(type);
 $ const bypassGate = hasOmedaId(req);
+$ const hostName = config.websiteContext.host.replace(/^www\./, '');
+
 
 <global-content-wrapper-layout
   id=id
@@ -120,7 +122,6 @@ $ const bypassGate = hasOmedaId(req);
         >
 
           $ const lazyloadFirstImage = displayPrimaryImage && content.primaryImage;
-          $ console.log('idxFormID: ', idxFormId, displayIdxForm)
           <if(idxFormId)>
             <if(displayIdxForm)>
               $ const body = type === 'document' ? content.body : getContentPreview({ body: content.body, selector: "p:lt(3)" });
@@ -307,7 +308,8 @@ $ const bypassGate = hasOmedaId(req);
                 <div class="social-sharing--wrapper">
                   <marko-web-social-sharing
                     path=content.siteContext.path
-                    providers=["print", "facebook", "linkedin", "twitter", "pinterest"]
+                    host-name=hostName
+                    providers=["print", "google", "facebook", "linkedin", "twitter", "pinterest"]
                     print-path=`/print/content/${content.id}`
                   />
                 </div>
@@ -513,7 +515,8 @@ $ const bypassGate = hasOmedaId(req);
               <div class="social-sharing--wrapper">
                 <marko-web-social-sharing
                   path=content.siteContext.path
-                  providers=["print", "facebook", "linkedin", "twitter", "pinterest"]
+                  host-name=hostName
+                  providers=["print", "google", "facebook", "linkedin", "twitter", "pinterest"]
                   print-path=`/print/content/${content.id}`
                 />
               </div>
