@@ -1,5 +1,6 @@
 import MonoRail from '@mindful-web/marko-web-theme-monorail/browser';
 
+const GooglePreferredSourcesButton = () => import(/* webpackChunkName: "google-preferred-sources-button" */ './google-preferred-sources-button.vue');
 const LoadAnalyzer = () => import(/* webpackChunkName: "load-analyzer" */ './load-analyzer.vue');
 const LoadToggler = () => import(/* webpackChunkName: "load-toggler" */ './load-toggler.vue');
 
@@ -13,6 +14,7 @@ export default (Browser) => {
     }
   });
 
+  Browser.register('GooglePreferredSourcesButton', GooglePreferredSourcesButton);
   Browser.register('LoadAnalyzer', LoadAnalyzer, { provide: { EventBus } });
   Browser.register('LoadToggler', LoadToggler);
 
