@@ -1,4 +1,5 @@
 import { getAsArray, getAsObject, get } from "@mindful-web/object-path";
+import { cleanPath } from "@mindful-web/utils";
 import contentIframe from "@randall-reilly/package-global/utils/content-iframe";
 import hasOmedaId from "@mindful-web/marko-web-theme-monorail/utils/has-omeda-id";
 import getContentPreview from "@mindful-web/marko-web-theme-monorail/utils/get-content-preview";
@@ -39,6 +40,8 @@ $ const displayNewsletterSignup = ["contact"].includes(type) || showOverlay ? fa
 $ const shouldInjectAds = ["article", "video", "news", "podcast", "media-gallery"].includes(type);
 $ const bypassGate = hasOmedaId(req);
 $ const hostName = config.websiteContext.host.replace(/^www\./, '');
+$ const path = input.path || req.path;
+$ const url = input.url || `${out.global.requestOrigin}/${cleanPath(path)}`;
 
 
 <global-content-wrapper-layout
@@ -305,14 +308,29 @@ $ const hostName = config.websiteContext.host.replace(/^www\./, '');
               </if>
 
               <if(displaySocialShare)>
-                <div class="social-sharing--wrapper">
+              <div class="social-sharing--wrapper">
+                <div class="social-sharing--button-wrapper">
                   <marko-web-social-sharing
                     path=content.siteContext.path
                     host-name=hostName
                     providers=["print", "google", "facebook", "linkedin", "twitter", "pinterest"]
                     print-path=`/print/content/${content.id}`
                   />
+                  <div class="social-sharing--inner-wrapper">
+                    <div class="social-sharing">
+                      <marko-web-browser-component
+                        name="GooglePreferredSourcesButton"
+                        props={
+                          hostName: hostName,
+                          provider: 'google',
+                          url: url,
+                        }
+                        ssr=true
+                      />
+                    </div>
+                  </div>
                 </div>
+              </div>
               </if>
               <if(!(content.labels && content.labels.includes('Sponsored')))>
                 $ const name = (aliases && aliases.length && aliases[0] === 'preventable-or-not') ? aliases[0] : 'default';
@@ -513,12 +531,27 @@ $ const hostName = config.websiteContext.host.replace(/^www\./, '');
 
             <if(displaySocialShare)>
               <div class="social-sharing--wrapper">
-                <marko-web-social-sharing
-                  path=content.siteContext.path
-                  host-name=hostName
-                  providers=["print", "google", "facebook", "linkedin", "twitter", "pinterest"]
-                  print-path=`/print/content/${content.id}`
-                />
+                <div class="social-sharing--button-wrapper">
+                  <marko-web-social-sharing
+                    path=content.siteContext.path
+                    host-name=hostName
+                    providers=["print", "google", "facebook", "linkedin", "twitter", "pinterest"]
+                    print-path=`/print/content/${content.id}`
+                  />
+                  <div class="social-sharing--inner-wrapper">
+                    <div class="social-sharing">
+                      <marko-web-browser-component
+                        name="GooglePreferredSourcesButton"
+                        props={
+                          hostName: hostName,
+                          provider: 'google',
+                          url: url,
+                        }
+                        ssr=true
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </if>
 
