@@ -592,8 +592,14 @@ label {
       justify-content: center;
       margin-bottom: 2rem;
     }
-    border: 1px solid #e3e4e5;
-    border-radius: 4px;
+    &--inner-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+    &--button-wrapper {
+      border: 1px solid #e3e4e5;
+      border-radius: 4px;
+    }
     padding: 16px 24px;
   }
   .content-card-deck {
